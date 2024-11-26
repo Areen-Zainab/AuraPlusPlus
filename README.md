@@ -39,6 +39,7 @@ Clients, on the other hand, encounter difficulties in submitting projects and ma
 updates. Limited transparency and manual processes lead to frustration and slow project
 timelines. These issues severely undermine productivity and lead to dissatisfaction for both
 involved parties - clients and companies.
+
 **Solution:**
 Our proposed system addresses these challenges by integrating human resources and project
 management into a unified platform, allowing seamless collaboration between companies and
