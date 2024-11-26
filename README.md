@@ -1,15 +1,15 @@
-WorkSphere
+**WorkSphere**
 
 An Integrated HR and Project Management System
 
-Scope:
-Our project focuses on delivering a comprehensive HR and project management platform to cater to the
+**Scope:**
+ Our project focuses on delivering a comprehensive HR and project management platform to cater to the
 needs of companies, employees, and clients. Our main focus is on the following areas:
 ➔ Human Resources Management
 ➔ Project Management
 ➔ User Interaction
 ➔ Reporting and Analytics
-Domain: For the foreseeable future, this project will be limited to Aura++ - a tech conglomerate.
+**Domain:** For the foreseeable future, this project will be limited to Aura++ - a tech conglomerate.
 The scope of this software lies in facilitating this company with Human Resources (HR), Project
 Management, and - most importantly, in a tech-based world - Business Process Automation. This scope
 is particularly relevant for businesses to manage teams, work on multiple projects at once, and for users
@@ -17,7 +17,7 @@ to collaborate with companies to get their projects done efficiently.
 Previous Tools: Our project will be modeled off of ClickUp's core functionality - but it will take it a step
 further by incorporating complete company HR management.
 
-Objectives:
+**Objectives:**
 ★ Streamline HR and Project Management by automating processes like employee onboarding,
 role assignment, and project tracking.
 ★ Enhance User-Company Collaboration and Transparency by enabling seamless
@@ -30,7 +30,7 @@ performance, project status, and resource allocation.
 ★ Enable Self-Service HR Functions for Employees such as updating personal information,
 submitting leave requests, and tracking attendance without needing HR intervention.
 
-Problem:
+**Problem:**
 Modern businesses often struggle to manage employee details, project assignments, and
 tracking progress efficiently across different platforms. This causes bottlenecks in operations,
 resulting in reduced productivity, and delayed or inadequate project deliverables.
@@ -39,7 +39,7 @@ Clients, on the other hand, encounter difficulties in submitting projects and ma
 updates. Limited transparency and manual processes lead to frustration and slow project
 timelines. These issues severely undermine productivity and lead to dissatisfaction for both
 involved parties - clients and companies.
-Solution:
+**Solution:**
 Our proposed system addresses these challenges by integrating human resources and project
 management into a unified platform, allowing seamless collaboration between companies and
 users.
