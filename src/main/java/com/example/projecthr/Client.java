@@ -25,7 +25,7 @@ public class Client extends User{
     @Override
     public void loadDashboard() {
         loadUserProfile();
-        ProjectApplication.switchScene("ClientMeetings.fxml", 1000, 600);
+        ProjectApplication.switchScene("ClientProject.fxml", 1000, 600);
     }
 
     @Override

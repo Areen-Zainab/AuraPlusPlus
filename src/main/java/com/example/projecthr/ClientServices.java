@@ -50,7 +50,7 @@ public class ClientServices {
     }
 
     public boolean submitNewProposal(String title, String description, int cost, String duration, String pdfPath, int clientId) {
-        String query = "INSERT INTO ProjectProposal (title, description, cost, duration, pdf_path, status, submission_date, created_at, client_id) " +
+        String query = "INSERT INTO ProjectProposal (title, description, budget, duration, pdf_path, status, submission_date, created_at, client_id) " +
                 "VALUES (?, ?, ?, ?, ?, 'Pending', NOW(), NOW(), ?)";
 
         Object[] params = { title, description, cost, duration, pdfPath, clientId };
@@ -64,7 +64,10 @@ public class ClientServices {
     }
 
     public ArrayList<ProjectProposal> getProposals(int clientId) {
-        String query = "SELECT * FROM ProjectProposal WHERE client_id = ?";
+        String query = "SELECT pp.*, p.project_id AS project_id, p.start_date, p.end_date, p.status AS project_status, p.final_cost " +
+                "FROM ProjectProposal pp " +
+                "LEFT JOIN Projects p ON pp.ProposalID = p.proposal_id " +  // Join based on the proposal_id in Projects
+                "WHERE pp.client_id = ?";
         ArrayList<ProjectProposal> proposals = new ArrayList<>();
         Connection connection;
 
@@ -74,12 +77,11 @@ public class ClientServices {
 
             try {
                 while (resultSet.next()) {
-                    // Extract values from the ResultSet
                     String title = resultSet.getString("title");
                     String description = resultSet.getString("description");
                     String duration = resultSet.getString("duration");
                     String pdfPath = resultSet.getString("pdf_path");
-                    int cost = resultSet.getInt("cost");
+                    int budget = resultSet.getInt("budget");
                     String status = resultSet.getString("status");
                     String submissionDate = resultSet.getString("submission_date");
                     int proposalId = resultSet.getInt("ProposalID");
@@ -87,8 +89,7 @@ public class ClientServices {
                     int clientIdFromDB = resultSet.getInt("client_id");
                     int managerId = resultSet.getInt("project_manager_id");
 
-                    // Create a new ProjectProposal object using the constructor with the updated attributes
-                    ProjectProposal proposal = new ProjectProposal(title, description, duration, pdfPath, cost,
+                    ProjectProposal proposal = new ProjectProposal(title, description, duration, pdfPath, budget,
                             status, submissionDate, proposalId, projectId, clientIdFromDB, managerId, managerId);
 
                     proposals.add(proposal);
@@ -232,8 +233,8 @@ public class ClientServices {
     }
 
     public ArrayList<Project> getProjects(int userId) {
-        String query = "SELECT p.project_id, p.project_name, p.client_id, p.manager_id, p.start_date, p.end_date, " +
-                "p.status, p.description, p.budget, pp.pdf_path AS proposal_pdf_path " +
+        String query = "SELECT p.project_id, pp.title, p.client_id, p.manager_id, p.start_date, p.end_date, " +
+                "p.status, pp.description, p.final_cost, pp.budget, pp.pdf_path AS proposal_pdf_path " +
                 "FROM Projects p " +
                 "JOIN ProjectProposal pp ON p.project_id = pp.project_id " +
                 "WHERE p.client_id = ?";
@@ -246,18 +247,19 @@ public class ClientServices {
 
             while (resultSet.next()) {
                 int projectId = resultSet.getInt("project_id");
-                String projectName = resultSet.getString("project_name");
+                String projectName = resultSet.getString("title");
                 int clientId = resultSet.getInt("client_id");
                 int managerId = resultSet.getInt("manager_id");
                 Date startDate = resultSet.getDate("start_date");
                 Date endDate = resultSet.getDate("end_date");
                 String status = resultSet.getString("status");
                 String description = resultSet.getString("description");
-                double budget = resultSet.getDouble("budget");
+                double final_cost= resultSet.getDouble("final_cost");
+                int budget = resultSet.getInt("budget");
                 String proposalPdfPath = resultSet.getString("proposal_pdf_path");
 
                 Project project = new Project(projectId, projectName, clientId, managerId, startDate, endDate,
-                        status, description, budget, proposalPdfPath);
+                        status, description, final_cost, budget, proposalPdfPath);
 
                 projects.add(project);
             }
@@ -307,6 +309,4 @@ public class ClientServices {
 
         return Factory.getFactory().getDb().executeUpdateQuery(updateQuery, params) > 0;
     }
-
-
 }

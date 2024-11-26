@@ -39,7 +39,10 @@
             </Button>
             <TextField fx:id="nameTextField" layoutX="55.0" layoutY="50.0" prefHeight="30.0" prefWidth="290.0" promptText="Project Title" style="-fx-background-color: transparent; -fx-text-fill: white;  -fx-border-color: white; -fx-border-radius: 5;" />
             <TextField fx:id="pathTextField" layoutX="55.0" layoutY="210.0" prefHeight="30.0" prefWidth="404.0" promptText="Project File Path" style="-fx-background-color: transparent; -fx-text-fill: white;  -fx-border-color: white; -fx-border-radius: 5;" />
-            <ImageView fx:id="attachFileButton" fitHeight="35.0" fitWidth="35.0" layoutX="472.0" layoutY="205.0" onMouseClicked="#attachProjectFile" pickOnBounds="true" preserveRatio="true" style="-fx-image: url('file:images/attachFile.png');" />
+            <ImageView fx:id="attachFileButton" fitHeight="35.0" fitWidth="35.0" layoutX="472.0" layoutY="205.0" onMouseClicked="#attachProjectFile" pickOnBounds="true" preserveRatio="true" style="-fx-image: url('file:images/attachFile.png');">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></ImageView>
             <TextField fx:id="costTextField" layoutX="55.0" layoutY="255.0" prefHeight="30.0" prefWidth="220.0" promptText="Cost (PKR)" style="-fx-background-color: transparent; -fx-text-fill: white;  -fx-border-color: white; -fx-border-radius: 5;" />
             <ComboBox fx:id="timeComboBox" layoutX="340.0" layoutY="257.0" prefHeight="25.0" prefWidth="98.0" promptText="Time" visibleRowCount="5" />
             <ComboBox fx:id="timeUnitComboBox" layoutX="450.0" layoutY="257.0" prefHeight="25.0" prefWidth="98.0" promptText="Week/Month" />

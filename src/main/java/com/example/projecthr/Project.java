@@ -1,23 +1,26 @@
 package com.example.projecthr;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Project {
+    ArrayList<Milestone> milestones; // composition
 
     private int projectId;
-    private String title;
+    private String title;   //get from proposal
     private int clientId;
     private int managerId;
     private Date startDate;
     private Date endDate;
     private String status;
-    private String description;
-    private double budget;
-    private String descripPath;
+    private String description; //get from proposal
+    private double final_cost;
+    private int budget;
+    private String descripPath; //get from proposal
 
     // Constructor
     public Project(int projectId, String projectName, int clientId, int managerId, Date startDate, Date endDate,
-                   String status, String description, double budget, String projectProposalFilePath) {
+                   String status, String description, double final_cost, int budget, String projectProposalFilePath) {
         this.projectId = projectId;
         this.title = projectName;
         this.clientId = clientId;
@@ -26,6 +29,7 @@ public class Project {
         this.endDate = endDate;
         this.status = status;
         this.description = description;
+        this.final_cost = final_cost;
         this.budget = budget;
         this.descripPath = projectProposalFilePath;
     }
@@ -95,12 +99,12 @@ public class Project {
         this.description = description;
     }
 
-    public double getBudget() {
-        return budget;
+    public double getFinal_cost() {
+        return final_cost;
     }
 
-    public void setBudget(double budget) {
-        this.budget = budget;
+    public void setFinal_cost(double final_cost) {
+        this.final_cost = final_cost;
     }
 
     public String getProjectProposalFilePath() {
@@ -121,7 +125,7 @@ public class Project {
                 ", endDate=" + endDate +
                 ", status='" + status + '\'' +
                 ", description='" + description + '\'' +
-                ", budget=" + budget +
+                ", budget=" + final_cost +
                 ", projectProposalFilePath='" + descripPath + '\'' +
                 '}';
     }

@@ -15,9 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0"
-            style="-fx-background-image: url('file:images/wp.jpg'); -fx-background-size: cover; -fx-background-repeat: no-repeat;"
-            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projecthr.ClientProjectController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-image: url('file:images/wp.jpg'); -fx-background-size: cover; -fx-background-repeat: no-repeat;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projecthr.ClientProjectController">
 
     <!-- Sidebar -->
     <left>
@@ -104,7 +102,7 @@
                 <TextField fx:id="searchBar" layoutX="188.0" layoutY="106.0" prefHeight="30.0" prefWidth="428.0" promptText="Search..." style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-radius: 5; -fx-text-fill: white;" />
                 <HBox fx:id="topHBox" alignment="CENTER_LEFT" layoutX="34.0" layoutY="153.0" prefHeight="66.0" prefWidth="736.0" spacing="10.0" style="-fx-background-color: rgba(25, 13, 5, 0.1); -fx-background-radius: 10;">
                     <children>
-                        <Label fx:id="upcomingLabel" prefHeight="54.0" prefWidth="279.0" style="-fx-background-color: rgba(25, 13, 5, 0.3); -fx-background-radius: 10;" text="Upcoming Meetings:" textFill="WHITE">
+                        <Label fx:id="upcomingLabel" prefHeight="54.0" prefWidth="279.0" style="-fx-background-color: rgba(25, 13, 5, 0.3); -fx-background-radius: 10;" text="In-Progress: " textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="13.0" />
                             </font>
@@ -112,7 +110,7 @@
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                             </padding>
                         </Label>
-                        <Label fx:id="pendingLabel" layoutX="20.0" layoutY="27.0" prefHeight="54.0" prefWidth="236.0" style="-fx-background-color: rgba(25, 13, 5, 0.3); -fx-border-radius: 10; -fx-background-radius: 10;" text="Pending Requests:" textFill="WHITE">
+                        <Label fx:id="pendingLabel" layoutX="20.0" layoutY="27.0" prefHeight="54.0" prefWidth="236.0" style="-fx-background-color: rgba(25, 13, 5, 0.3); -fx-border-radius: 10; -fx-background-radius: 10;" text="Completed: " textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="13.0" />
                             </font>
@@ -123,7 +121,7 @@
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                             </padding>
                         </Label>
-                  <Label fx:id="pendingLabel1" alignment="CENTER" layoutX="310.0" layoutY="20.0" onMouseClicked="#onProposalButtonClick" onMouseEntered="#onMouseEntered" onMouseExited="#onPropMouseExit" prefHeight="54.0" prefWidth="236.0" style="-fx-background-color: rgba(80, 180, 140, 0.3); -fx-border-radius: 10; -fx-background-radius: 10;" text="New Project Idea? Tap Here!" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+                  <Label fx:id="pendingLabel1" alignment="CENTER" layoutX="310.0" layoutY="20.0" onMouseClicked="#onProposalButtonClick" onMouseEntered="#onPropMouseEnter" onMouseExited="#onPropMouseExit" prefHeight="54.0" prefWidth="236.0" style="-fx-background-color: rgba(80, 180, 140, 0.3); -fx-border-radius: 10; -fx-background-radius: 10;" text="New Project Idea? Tap Here!" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>

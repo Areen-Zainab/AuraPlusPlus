@@ -1,6 +1,10 @@
 package com.example.projecthr;
 
+import java.util.ArrayList;
+
 public class Employee extends User{
+    ArrayList<Task> tasks;  //aggregation
+
     Employee(int userId, String email) {
         super(userId, email);
     }

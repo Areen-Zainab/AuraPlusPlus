@@ -5,7 +5,7 @@ public class ProjectProposal {
     private String description;
     private String duration;
     private String pdfPath;
-    private int cost;
+    private int budget;
     private String status;
     private String submission_date;
     private int proposal_id, project_id, client_id, manager_id;
@@ -18,7 +18,7 @@ public class ProjectProposal {
         this.description = description;
         this.duration = duration;
         this.pdfPath = pdfPath;
-        this.cost = cost;
+        this.budget = cost;
         this.status = status;
         this.submission_date = submission_date;
         this.proposal_id = proposal_id;
@@ -34,7 +34,7 @@ public class ProjectProposal {
     public String getPdfPath() { return pdfPath; }
     public String getStatus() { return status; }
     public String getSubmission_date() { return submission_date; }
-    public int getCost() { return cost; }
+    public int getBudget() { return budget; }
     public int getProposal_id() { return proposal_id; }
     public int getProject_id() { return project_id; }
     public int getClient_id() { return client_id; }
@@ -44,7 +44,7 @@ public class ProjectProposal {
     public void setDescription(String description) { this.description = description; }
     public void setDuration(String duration) { this.duration = duration; }
     public void setPdfPath(String pdfPath) { this.pdfPath = pdfPath; }
-    public void setCost(int cost) { this.cost = cost; }
+    public void setBudget(int budget) { this.budget = budget; }
     public void setStatus(String status) { this.status = status; }
     public void setSubmission_date(String submission_date) { this.submission_date = submission_date; }
     public void setProposal_id(int proposal_id) { this.proposal_id = proposal_id; }

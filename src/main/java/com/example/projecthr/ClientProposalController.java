@@ -272,7 +272,7 @@ public class ClientProposalController {
         descriptionLabel.setStyle(" -fx-text-fill: white;");
         infoBox.getChildren().add(descriptionLabel);
 
-        Label durationLabel = new Label("Duration: " + proposal.getDuration() + ",   Cost: " + proposal.getCost() + "PKR");
+        Label durationLabel = new Label("Duration: " + proposal.getDuration() + ",   Cost: " + proposal.getBudget() + "PKR");
         durationLabel.setStyle(" -fx-text-fill: white;  -fx-font-weight: bold; -fx-font-size: 10;");
         infoBox.getChildren().add(durationLabel);
 
@@ -368,7 +368,7 @@ public class ClientProposalController {
         Label durationLabel = new Label("Duration: " + proposal.getDuration());
         durationLabel.setStyle("-fx-font-size: 12; -fx-text-fill: lightgray;");
 
-        Label costLabel = new Label("Cost: PKR. " + proposal.getCost());
+        Label costLabel = new Label("Cost: PKR. " + proposal.getBudget());
         costLabel.setStyle("-fx-font-size: 12; -fx-text-fill: lightgray;");
 
         Label submissionDateLabel = new Label("Submitted On: " + proposal.getSubmission_date());

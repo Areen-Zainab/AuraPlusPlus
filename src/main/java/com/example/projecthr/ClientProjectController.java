@@ -78,8 +78,13 @@ public class ClientProjectController {
         }
     }
     @FXML public void onPropMouseExit(MouseEvent event) {
-        if (event.getSource() instanceof Button button) {
-            button.setStyle("-fx-background-color:   rgba(80, 180, 140, 0.3); -fx-text-fill: white;  -fx-background-radius: 20;");
+        if (event.getSource() instanceof Label label) {
+            label.setStyle("-fx-background-color:   rgba(80, 180, 140, 0.3); -fx-text-fill: white;  -fx-background-radius: 10;");
+        }
+    }
+    @FXML public void onPropMouseEnter(MouseEvent event) {
+        if (event.getSource() instanceof Label label) {
+            label.setStyle("-fx-background-color:   rgba(80, 180, 140, 0.5); -fx-text-fill: white;  -fx-background-radius: 10;");
         }
     }
     @FXML public void onDarkMouseHoverEnter(MouseEvent event) {
