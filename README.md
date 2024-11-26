@@ -63,4 +63,4 @@ Documentation:
 https://docs.google.com/document/d/1zpl_qo3WQkDoTdeV7w83rpf71PDzaSQxHBc-T-6T1a4/edit?usp=sharing
 
 PPT:
-https://www.canva.com/design/DAGW_Iu7iVY/wZTkoJWwUzduA3elvdsYaw/edit?utm_content=DAGW_Iu7iVY&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+https://www.canva.com/design/DAGXml_pJYo/O_y6Y6K5jcLV6V0Wm29xFw/edit?utm_content=DAGXml_pJYo&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
