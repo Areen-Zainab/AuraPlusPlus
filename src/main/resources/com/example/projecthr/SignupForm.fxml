@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="mainScreen" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="950.0" style="-fx-background-image: url('file:images/bg1.jpg'); -fx-background-repeat: no-repeat; -fx-background-size: cover;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projecthr.ProjectController">
+    <children>
+        <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="950.0" style="-fx-background-color: rgba(0,0,0, 0.6);">
+            <children>
+                <Pane fx:id="logoPane" layoutX="430.0" layoutY="490.0" prefHeight="50.0" prefWidth="90.0" style="-fx-background-image: url('file:images/aura.png'); -fx-background-size: cover; -fx-background-repeat: no-repeat;" />
+                <Pane layoutX="275.0" layoutY="60.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="400.0" style="-fx-background-color: rgba(70, 30, 0, 0.4); -fx-background-radius: 20;">
+                    <children>
+                        <VBox layoutX="50.0" layoutY="40.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="370.0" prefWidth="310.0">
+                            <children>
+                        <Pane prefHeight="75.0" prefWidth="308.0">
+                           <children>
+                                      <Label layoutY="5.0" prefHeight="40.0" prefWidth="308.0" text="Full Name" textFill="#f4f2f2">
+                                          <font>
+                                              <Font size="13.0" />
+                                          </font>
+                                      </Label>
+                                      <TextField fx:id="nameTextField" layoutY="30.0" prefHeight="35.0" prefWidth="300.0" />
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="75.0" prefWidth="300.0">
+                           <children>
+                              <Label prefHeight="40.0" prefWidth="308.0" text="Email" textFill="#fffefe">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="emailTextField" layoutY="30.0" prefHeight="35.0" prefWidth="300.0" />
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="75.0" prefWidth="308.0">
+                           <children>
+                              <CheckBox fx:id="showPassCheckBox" layoutX="180.0" layoutY="11.0" mnemonicParsing="false" onAction="#selectShowPassCheckBox" prefHeight="18.0" prefWidth="110.0" text="Show Password" textFill="#dcdada">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </CheckBox>
+                              <TextField fx:id="passTextField" layoutX="0.0" layoutY="30.0" prefHeight="35.0" prefWidth="300.0" />
+                                      <Label prefHeight="40.0" prefWidth="151.0" text="Password" textFill="#fcfafa">
+                                          <font>
+                                              <Font size="13.0" />
+                                          </font>
+                                      </Label>
+                                      <PasswordField fx:id="passwordField" layoutY="30.0" prefHeight="35.0" prefWidth="300.0" />
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="151.0" prefWidth="310.0">
+                           <children>
+                              <CheckBox fx:id="independentCheckBox" layoutY="15.0" mnemonicParsing="false" onAction="#handleIndependentCheck" style="-fx-background-color: transparent;" text="Independent" textFill="WHITE">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </CheckBox>
+                              <TextField fx:id="companyTextField" layoutX="120.0" layoutY="10.0" prefHeight="35.0" prefWidth="180.0" promptText="Company Name" />
+                           </children>
+                        </Pane>
+                            </children>
+                        </VBox>
+                          <Label alignment="CENTER" contentDisplay="CENTER" layoutX="50.0" prefHeight="50.0" prefWidth="308.0" text="Sign Up, Stay Ahead!" textAlignment="CENTER" textFill="WHITE">
+                              <font>
+                                  <Font name="System Bold" size="28.0" />
+                              </font>
+                          </Label>
+                          <Pane layoutX="45.0" layoutY="320.0" prefHeight="90.0" prefWidth="308.0">
+                              <children>
+                                  <Button alignment="CENTER" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#onSignUpButtonClick" prefHeight="45.0" prefWidth="308.0" style="-fx-background-color: #321400;" text="Sign Up" textFill="#f4f2f2">
+                                      <font>
+                                          <Font name="System Bold" size="14.0" />
+                                      </font>
+                                      <effect>
+                                          <Glow />
+                                      </effect>
+                                  </Button>
+                        <Pane layoutY="50.0" prefHeight="20.0" prefWidth="308.0">
+                           <children>
+                              <Label alignment="CENTER" layoutX="-5.0" layoutY="10.0" text="By clicking on this button, you agree to our terms and conditions." textAlignment="CENTER" textFill="#b4b0b0" wrapText="true">
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                              </children>
+                          </Pane>
+                    </children>
+                </Pane>
+                    <Pane layoutX="375.0" layoutY="470.0" prefHeight="26.0" prefWidth="201.0">
+                        <children>
+                            <Label layoutY="5.0" text="Already have an account?" textFill="#ece9e9" />
+                            <Hyperlink layoutX="139.0" onMouseClicked="#onLoginPageButtonClick" text="Log In">
+                                <font>
+                                    <Font size="14.0" />
+                                </font>
+                            </Hyperlink>
+                        </children>
+                    </Pane>
+            </children>
+        </Pane>
+    </children>
+</Pane>

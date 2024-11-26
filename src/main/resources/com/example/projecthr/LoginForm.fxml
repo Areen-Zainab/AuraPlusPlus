@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="mainScreen" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="950.0" style="-fx-background-image: url('file:images/bg1.jpg'); -fx-background-repeat: no-repeat; -fx-background-size: cover;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projecthr.ProjectController">
+   <children>
+      <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="950.0" style="-fx-background-color: rgba(0,0,0, 0.6);">
+         <children>
+            <Pane fx:id="logoPane" layoutX="430.0" layoutY="490.0" prefHeight="50.0" prefWidth="90.0" style="-fx-background-image: url('file:images/aura.png'); -fx-background-size: cover; -fx-background-repeat: no-repeat;" />
+            <Pane layoutX="275.0" layoutY="70.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="390.0" prefWidth="400.0" style="-fx-background-color: rgba(70, 30, 0, 0.4); -fx-background-radius: 20;">
+               <children>
+                  <VBox layoutX="46.0" layoutY="21.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="357.0" prefWidth="308.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" prefHeight="82.0" prefWidth="354.0" text="Welcome Back!" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="28.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="23.0" prefWidth="322.0" text="Email" textFill="#f4f2f2">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="emailTextField" prefHeight="35.0" prefWidth="308.0" />
+                        <Label prefHeight="42.0" prefWidth="309.0" text="&#10;Password" textFill="#fcfafa">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <PasswordField fx:id="passwordField" prefHeight="35.0" prefWidth="308.0" />
+                        <Pane prefHeight="90.0" prefWidth="308.0">
+                           <children>
+                              <Button alignment="CENTER" layoutX="1.0" layoutY="45.0" mnemonicParsing="false" onMouseClicked="#onLoginButtonClick" prefHeight="45.0" prefWidth="308.0" style="-fx-background-color: #321400;" text="Log In" textFill="#f4f2f2">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <effect>
+                                    <Glow />
+                                 </effect>
+                              </Button>
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="42.0" prefWidth="308.0">
+                           <children>
+                              <Label layoutX="47.0" layoutY="13.0" text="Don't have an account?" textFill="#ece9e9" />
+                              <Hyperlink layoutX="181.0" layoutY="10.0" onMouseClicked="#onSignUpPageButtonClick" text="Sign Up">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Hyperlink>
+                           </children>
+                        </Pane>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </children>
+</Pane>
