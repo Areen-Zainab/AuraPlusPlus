@@ -60,7 +60,7 @@ Fully-Extended Usecase:
 https://docs.google.com/document/d/1YTB9dslVOjByxZkgq5HBx4uLRj11hU-TOixR6gdnn1g/edit?usp=sharing
 
 Documentation:
-https://docs.google.com/document/d/1zpl_qo3WQkDoTdeV7w83rpf71PDzaSQxHBc-T-6T1a4/edit?usp=sharing
+https://docs.google.com/document/d/1jCtZkIpaHFeEs8pcTN8MaH87yGHfOtR7muO8jp_3e_Y/edit?usp=sharing
 
 PPT:
 https://www.canva.com/design/DAGXml_pJYo/O_y6Y6K5jcLV6V0Wm29xFw/edit?utm_content=DAGXml_pJYo&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
