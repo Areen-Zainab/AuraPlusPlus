@@ -7,7 +7,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
+//Singleton -Utility
 public class ClientServices {
+    private static ClientServices instance;
+
+    private ClientServices() {}
+    public static ClientServices getInstance() {
+        if(instance==null){
+            instance = new ClientServices();
+        }
+        return instance;
+    }
 
     public boolean loadProfile(User user) {
         ResultSet clientResult = null;
@@ -236,7 +246,7 @@ public class ClientServices {
         String query = "SELECT p.project_id, pp.title, p.client_id, p.manager_id, p.start_date, p.end_date, " +
                 "p.status, pp.description, p.final_cost, pp.budget, pp.pdf_path AS proposal_pdf_path " +
                 "FROM Projects p " +
-                "JOIN ProjectProposal pp ON p.project_id = pp.project_id " +
+                "JOIN ProjectProposal pp ON p.proposal_id = pp.ProposalID " +
                 "WHERE p.client_id = ?";
 
         ArrayList<Project> projects = new ArrayList<>();

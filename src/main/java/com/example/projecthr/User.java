@@ -23,6 +23,10 @@ public abstract class User {
         this.email = email;
     }
 
+    public User(int userId){
+        this.userId = userId;
+    }
+
     public abstract void loadDashboard() throws IOException;
 
     public boolean loadUserProfile() {

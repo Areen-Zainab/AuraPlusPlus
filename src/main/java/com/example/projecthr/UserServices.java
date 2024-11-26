@@ -6,6 +6,16 @@ import java.sql.SQLException;
 
 //provide an interface for the DBHandler and User class to interact
 public class UserServices {
+    private static UserServices instance;
+
+    private UserServices() {}
+    public static UserServices getInstance() {
+        if (instance == null) {
+            instance = new UserServices();
+        }
+        return instance;
+    }
+
     public static boolean isEmailUnique(String email) {
         String query = "SELECT COUNT(*) FROM users WHERE email = ?";
         try {

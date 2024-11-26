@@ -3,6 +3,7 @@ package com.example.projecthr;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -321,6 +322,9 @@ public class ClientMeetingController {
         }
         infoBox.getChildren().addAll(titleLabel, agendaLabel, dateTimeLabel, statusLabel);
         meetingPanel.getChildren().addAll(infoBox, controls);
+        meetingPanel.setCursor(Cursor.HAND);
+        meetingPanel.setOnMouseEntered(event -> meetingPanel.setStyle("-fx-background-color: rgba(25, 13, 5, 0.7); -fx-background-radius: 10; -fx-text-fill: white;"));
+        meetingPanel.setOnMouseExited(event -> meetingPanel.setStyle("-fx-background-color: rgba(25, 13, 5, 0.5); -fx-background-radius: 10; -fx-text-fill: white;"));
         return meetingPanel;
     }
     private void openPopupMeeting(Meeting meeting) {
@@ -381,7 +385,6 @@ public class ClientMeetingController {
         popupStage.initModality(Modality.APPLICATION_MODAL);
         popupStage.showAndWait();
     }
-
     private static Label getPriorityLabel(Meeting meeting) {
         Label priorityLabel = new Label("Priority: " + meeting.getPriority());
         if (Objects.equals(meeting.getPriority(), "Low")) {
@@ -566,8 +569,10 @@ public class ClientMeetingController {
         else {
             Button viewMinutesButton = new Button("View Meeting Minutes");
             viewMinutesButton.setOnAction(e -> ProjectApplication.viewAttachment(meeting.getMinutesFilePath()));
-            viewMinutesButton.setPrefSize(150, 40);
+            viewMinutesButton.setPrefSize(200, 40);
             viewMinutesButton.setStyle("-fx-background-radius: 6; -fx-text-fill: white; -fx-background-color: rgba(0,128,0,0.3)");
+            if(meeting.getMinutesFilePath() == null)
+                viewMinutesButton.setDisable(true);
             buttonBox.getChildren().add(viewMinutesButton);
         }
 
@@ -644,9 +649,12 @@ public class ClientMeetingController {
         } else {
             attachFileButton = new Button("View Meeting Minutes");
             attachFileButton.setOnAction(e -> ProjectApplication.viewAttachment(meeting.getMinutesFilePath()));
+            if(meeting.getMinutesFilePath() == null) {
+                attachFileButton.setDisable(true);
+            }
         }
         attachFileButton.setStyle("-fx-background-radius: 6; -fx-text-fill: white; -fx-background-color: rgba(0,0,200,0.3)");
-        attachFileButton.setPrefSize(100, 30);
+        attachFileButton.setPrefSize(150, 30);
         controls.getChildren().add(attachFileButton);
     }
 }

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projecthr.proposalDetailsController">
+    <left>
+        <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <VBox prefHeight="600.0" prefWidth="195.0" spacing="20" style="-fx-background-color: rgba(41,59,73,255); -fx-padding: 20;">
+                    <effect>
+                        <Glow level="0.01" />
+                    </effect>
+                    <children>
+                        <Pane opacity="0.98" prefHeight="100.0" prefWidth="155.0" style="-fx-background-color: transparent;">
+                            <children>
+                                <ImageView fitHeight="77.0" fitWidth="142.0" layoutX="8.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: url('file:images/defaultPFPWhite.png'); -fx-background-color: rgba(41,59,73,255);" />
+                            </children>
+                        </Pane>
+                        <VBox spacing="10.0" style="-fx-padding: 10 0;">
+                            <children>
+                                <Button fx:id="dashButton" onAction="#onDashboardButtonClick" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" prefHeight="35.0" prefWidth="157.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-background-radius: 20;" text="Dashboard">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                    <effect>
+                                        <ColorAdjust />
+                                    </effect>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                </Button>
+                                <Button fx:id="projButton" onAction="#onProjectButtonClick" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" prefHeight="35.0" prefWidth="165.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-background-radius: 20;" text="Projects">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                </Button>
+                                <Button fx:id="meetingButton" onAction="#onMeetingButtonClick" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" prefHeight="35.0" prefWidth="156.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-background-radius: 20;" text="Meetings">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                </Button>
+                                <Button fx:id="prosalsButton" onAction="#onProposalButtonClick" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" prefHeight="35.0" prefWidth="161.0" style="-fx-background-color: transparent; -fx-text-fill: white;  -fx-background-radius: 20;" text="Proposals">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                </Button>
+                                <Button fx:id="updateButton" onAction="#onWorkcalendarButtonClick" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" prefHeight="35.0" prefWidth="157.0" style="-fx-background-color: transparent; -fx-text-fill: white;  -fx-background-radius: 20;" text="WorkCalendar">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                </Button>
+                                <Pane prefHeight="61.0" prefWidth="155.0" />
+                                <Button fx:id="profileButton" onAction="#onProfileButtonClick" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" prefHeight="35.0" prefWidth="158.0" style="-fx-background-color: rgba(41,59,73,255); -fx-text-fill: white; -fx-background-radius: 20;" text="Profile">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                </Button>
+                                <Button fx:id="logoutButton" onAction="#onLogoutButtonClick" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" prefHeight="35.0" prefWidth="158.0" style="-fx-background-color: transparent; -fx-text-fill: white;  -fx-background-radius: 20;" text="Log Out">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                </Button>
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+            </children>
+        </Pane>
+    </left>
+    <right>
+        <Pane prefHeight="600.0" prefWidth="887.0" BorderPane.alignment="CENTER">
+            <children>
+                <Pane layoutX="-9.0" layoutY="99.0" prefHeight="508.0" prefWidth="818.0" style="-fx-background-color: rgba(88,109,128,255);">
+                    <children>
+                        <Pane layoutX="570.0" layoutY="-1.0" prefHeight="514.0" prefWidth="257.0" style="-fx-background-color: rgba(82,101,119,255);">
+                            <children>
+                                <Button fx:id="AcceptButton" layoutX="40.0" layoutY="34.0" mnemonicParsing="false" onAction="#onAcceptButtonClick" prefHeight="30.0" prefWidth="137.0" style="-fx-background-color: rgba(41,59,73,255);" text="Accept" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                </Button>
+                                <Button fx:id="RejectButton" layoutX="40.0" layoutY="78.0" mnemonicParsing="false" onAction="#onRejectButtonClick" prefHeight="30.0" prefWidth="137.0" style="-fx-background-color: white;" text="Reject">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                </Button>
+                                <Label layoutX="11.0" layoutY="132.0" text="Add Comment" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <TextField layoutX="11.0" layoutY="156.0" prefHeight="25.0" prefWidth="180.0" promptText="comment.." />
+                                <Label layoutX="24.0" layoutY="226.0" text="About Client:" textFill="#293b49">
+                                    <font>
+                                        <Font name="System Bold" size="23.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="24.0" layoutY="272.0" text="Name:" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="24.0" layoutY="298.0" text="Company Name:" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="24.0" layoutY="325.0" text="Address:" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="24.0" layoutY="354.0" text="Contact No:" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Button fx:id="sendButton" layoutX="202.0" layoutY="156.0" mnemonicParsing="false" onAction="#onSendButtonClick" prefHeight="25.0" prefWidth="42.0" style="-fx-background-color: rgba(41,59,73,255);" text="send" textFill="WHITE">
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                </Button>
+                            </children>
+                        </Pane>
+                        <Label layoutX="32.0" layoutY="29.0" text="Project Name" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="17.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="32.0" layoutY="68.0" text="Description:" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="32.0" layoutY="245.0" text="Budget:" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="207.0" layoutY="245.0" text="Duration:" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="369.0" layoutY="245.0" text="Milestones:" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="32.0" layoutY="297.0" text="Attachments:" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="17.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="32.0" layoutY="337.0" prefHeight="21.0" prefWidth="124.0" style="-fx-border-color: white;" text="  PDF attached" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                        <Button fx:id="downloadButton" layoutX="265.0" layoutY="334.0" mnemonicParsing="false" onAction="#onDownloadButtonClick" prefHeight="30.0" prefWidth="102.0" style="-fx-background-color: rgba(41,59,73,255);" text="Download " textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </Button>
+                        <Button fx:id="viewButton" layoutX="394.0" layoutY="334.0" mnemonicParsing="false" onAction="#onViewButtonClick" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: white;" text="View">
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </Button>
+                    </children>
+                </Pane>
+                <Pane layoutX="-7.0" layoutY="1.0" prefHeight="98.0" prefWidth="823.0">
+                    <children>
+                        <Pane layoutX="-1.0" layoutY="-6.0" prefHeight="106.0" prefWidth="824.0" style="-fx-background-color: rgba(68,85,101,255);">
+                            <children>
+                                <Label fx:id="namelabel" layoutX="24.0" layoutY="42.0" prefHeight="35.0" prefWidth="302.0" style="-fx-text-fill: white; -fx-font-size: 24; -fx-font-weight: bold;" text="Project Proposals Details" />
+                            </children>
+                        </Pane>
+                    </children>
+                </Pane>
+            </children>
+        </Pane>
+    </right>
+</BorderPane>

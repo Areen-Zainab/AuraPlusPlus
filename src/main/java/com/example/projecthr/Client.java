@@ -1,4 +1,6 @@
 package com.example.projecthr;
+import javafx.scene.control.Alert;
+
 import java.sql.Time;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -52,6 +54,9 @@ public class Client extends User{
     }
 
     public ArrayList<ProjectProposal> getFilteredProposals(String filter){
+        if(proposals == null){
+            getProposals();
+        }
         ArrayList<ProjectProposal> filteredProposals = new ArrayList<>();
 
         if (filter.equalsIgnoreCase("Accepted") ||
@@ -112,18 +117,23 @@ public class Client extends User{
     }
 
     public void scheduleNewMeeting(String title, String agenda, LocalDate date, Time time,
-                                   String location, String address, int projectId) throws Exception {
-        int manager = -1;
-        for (Project project : projects) {
-            if (project.getProjectId() == projectId) {
-                manager = project.getManagerId();
-                break; // Exit the loop once the matching project is found
+                                   String location, String address, int projectId){
+        try {
+            int manager = -1;
+            for (Project project : projects) {
+                if (project.getProjectId() == projectId) {
+                    manager = project.getManagerId();
+                    break; // Exit the loop once the matching project is found
+                }
             }
+            if (manager == -1) {
+                return;
+            }
+            Factory.getClientServices().saveMeeting(userId, title, agenda, date, time, location, address, projectId, manager);
         }
-        if(manager == -1){
-            return;
+        catch (Exception e) {
+            ProjectApplication.showAlert(Alert.AlertType.ERROR, "Unexpected Error", "Meeting could not be saved!");
         }
-        Factory.getClientServices().saveMeeting(userId, title, agenda, date, time, location, address, projectId, manager);
     }
 
     public void updateMeeting(Meeting meeting) throws Exception {
@@ -137,9 +147,6 @@ public class Client extends User{
     public ArrayList<Project> getProjects(){
         if(projects == null){
             projects = Factory.getClientServices().getProjects(userId);
-        }
-        for(Project prop : projects){
-            prop.info();
         }
         return projects;
     }
@@ -168,5 +175,25 @@ public class Client extends User{
             if(prop.getStatus().equalsIgnoreCase("Scheduled")){ count++;}
         }
         return count;
+    }
+
+    public int getProjectCount(String filter){
+        if(filter == null || filter.isEmpty()){
+            return projects.size();
+        }
+        int count  = 0;
+        for(Project proj : projects){
+            if(proj.getStatus().equalsIgnoreCase(filter)){ count++;}
+        }
+        return count;
+    }
+    public ArrayList<Project> getFilteredProjects(String filter){
+        ArrayList<Project> filteredProjects = new ArrayList<>();
+        for(Project proj : projects){
+            if(proj.getStatus().equalsIgnoreCase(filter)){
+                filteredProjects.add(proj);
+            }
+        }
+        return filteredProjects;
     }
 }

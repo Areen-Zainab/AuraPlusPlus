@@ -4,11 +4,13 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -100,9 +102,9 @@
                     </children>
                 </Pane>
                 <TextField fx:id="searchBar" layoutX="188.0" layoutY="106.0" prefHeight="30.0" prefWidth="428.0" promptText="Search..." style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-radius: 5; -fx-text-fill: white;" />
-                <HBox fx:id="topHBox" alignment="CENTER_LEFT" layoutX="34.0" layoutY="153.0" prefHeight="66.0" prefWidth="736.0" spacing="10.0" style="-fx-background-color: rgba(25, 13, 5, 0.1); -fx-background-radius: 10;">
+                <HBox fx:id="topHBox" alignment="CENTER_LEFT" layoutX="26.0" layoutY="153.0" prefHeight="66.0" prefWidth="762.0" spacing="10.0" style="-fx-background-color: rgba(25, 13, 5, 0.1); -fx-background-radius: 10;">
                     <children>
-                        <Label fx:id="upcomingLabel" prefHeight="54.0" prefWidth="279.0" style="-fx-background-color: rgba(25, 13, 5, 0.3); -fx-background-radius: 10;" text="In-Progress: " textFill="WHITE">
+                        <Label fx:id="activeLabel" prefHeight="46.0" prefWidth="277.0" style="-fx-background-color: rgba(25, 13, 5, 0.3); -fx-background-radius: 10;" text="Active Projects" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="13.0" />
                             </font>
@@ -110,7 +112,7 @@
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                             </padding>
                         </Label>
-                        <Label fx:id="pendingLabel" layoutX="20.0" layoutY="27.0" prefHeight="54.0" prefWidth="236.0" style="-fx-background-color: rgba(25, 13, 5, 0.3); -fx-border-radius: 10; -fx-background-radius: 10;" text="Completed: " textFill="WHITE">
+                        <Label fx:id="completeLabel" layoutX="20.0" layoutY="27.0" prefHeight="46.0" prefWidth="277.0" style="-fx-background-color: rgba(25, 13, 5, 0.3); -fx-border-radius: 10; -fx-background-radius: 10;" text="Completed Projects:" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="13.0" />
                             </font>
@@ -121,12 +123,12 @@
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                             </padding>
                         </Label>
-                  <Label fx:id="pendingLabel1" alignment="CENTER" layoutX="310.0" layoutY="20.0" onMouseClicked="#onProposalButtonClick" onMouseEntered="#onPropMouseEnter" onMouseExited="#onPropMouseExit" prefHeight="54.0" prefWidth="236.0" style="-fx-background-color: rgba(80, 180, 140, 0.3); -fx-border-radius: 10; -fx-background-radius: 10;" text="New Project Idea? Tap Here!" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+                  <Label fx:id="pendingLabel1" alignment="CENTER" contentDisplay="CENTER" layoutX="310.0" layoutY="20.0" onMouseClicked="#onProposalButtonClick" onMouseEntered="#onPropMouseEnter" onMouseExited="#onPropMouseExit" prefHeight="46.0" prefWidth="165.0" style="-fx-background-color: rgba(80, 180, 140, 0.3); -fx-border-radius: 10; -fx-background-radius: 10;" text="New Project Idea? &#10;Tap Here!" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                      <font>
-                        <Font name="System Bold" size="13.0" />
+                        <Font name="System Bold" size="12.0" />
                      </font>
                      <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </Label>
                     </children>
@@ -139,6 +141,32 @@
                         <Font size="10.0" />
                     </font>
                 </Label>
+            <AnchorPane layoutX="33.0" layoutY="240.0" minHeight="0.0" minWidth="0.0" prefHeight="332.0" prefWidth="281.0" style="-fx-background-color: rgba(0, 0, 0, 0); -fx-background-radius: 10; -fx-effect: none;">
+               <children>
+                  <ScrollPane fx:id="activeScroll" fitToHeight="true" fitToWidth="true" prefHeight="310.0" prefWidth="282.0" style="-fx-background-color: rgba(0, 0, 0, 0); -fx-background-radius: 10; -fx-border-color: transparent; -fx-padding: 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <content>
+                        <VBox fx:id="activeVBox" prefHeight="309.0" prefWidth="608.0" spacing="10.0" style="-fx-background-color: transparent; -fx-background-radius: 10; -fx-background-image: url('file:images/backdrop.png');">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="327.0" layoutY="240.0" minHeight="0.0" minWidth="0.0" prefHeight="332.0" prefWidth="281.0" style="-fx-background-color: rgba(0, 0, 0, 0); -fx-background-radius: 10; -fx-effect: none;">
+               <children>
+                  <ScrollPane fx:id="completeScroll" fitToHeight="true" fitToWidth="true" prefHeight="310.0" prefWidth="282.0" style="-fx-background-color: rgba(0, 0, 0, 0); -fx-background-radius: 10; -fx-border-color: transparent; -fx-padding: 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <content>
+                        <VBox fx:id="completeVBox" prefHeight="309.0" prefWidth="608.0" spacing="10.0" style="-fx-background-color: transparent; -fx-background-radius: 10; -fx-background-image: url('file:images/backdrop.png');">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </AnchorPane>
             </children>
         </Pane>
     </center>

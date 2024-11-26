@@ -19,6 +19,7 @@ public class Meeting {
     private String cancellationReason;  //
     private String rescheduleNotes;
 
+    public Meeting() {}
     public Meeting(int meetingId, int hostId, int recipientId, int project_id, LocalDate meetingDate,
                    LocalTime meetingTime, String location, String agenda, String status, String title, String priority, String minutesFilePath, String cancellationReason, String rescheduleNotes) {
         this.meetingId = meetingId;

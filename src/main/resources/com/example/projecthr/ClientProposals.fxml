@@ -121,7 +121,7 @@
                <children>
                   <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="380.0" prefWidth="740.0" style="-fx-background-color:  rgba(0, 0, 0, 0); -fx-background-radius: 10; -fx-border-color: transparent; -fx-padding: 0;">
                      <content>
-                        <VBox fx:id="parentPanel" spacing="10.0" style="-fx-background-color: rgba(25, 13, 5, 0.2); -fx-background-radius: 10; -fx-background-image: url('file:images/wp.jpg');">
+                        <VBox fx:id="parentPanel" spacing="10.0" style="-fx-background-color: rgba(25, 13, 5, 0.2); -fx-background-radius: 10; -fx-background-image: url('file:images/backdrop.png');">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>

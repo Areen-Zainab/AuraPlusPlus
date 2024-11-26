@@ -3,6 +3,7 @@ package com.example.projecthr;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -239,6 +240,9 @@ public class ClientProposalController {
 
             for (ProjectProposal proposal : proposals) {
                 HBox proposalPanel = createProposalPanel(proposal);
+                proposalPanel.setCursor(Cursor.HAND);
+                proposalPanel.setOnMouseEntered(event -> proposalPanel.setStyle("-fx-background-color: rgba(25, 13, 5, 0.7); -fx-background-radius: 10; -fx-text-fill: white;"));
+                proposalPanel.setOnMouseExited(event -> proposalPanel.setStyle("-fx-background-color: rgba(25, 13, 5, 0.5); -fx-background-radius: 10; -fx-text-fill: white;"));
                 proposalPanel.setOnMouseClicked(_ -> openPopupProject(proposal));
                 parentPanel.getChildren().add(proposalPanel);
             }

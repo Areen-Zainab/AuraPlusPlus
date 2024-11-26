@@ -4,6 +4,7 @@ public class Factory {
     private DBHandler db;
     private static UserServices userServices;
     private static ClientServices clientServices;
+    private static ProjectUtility projectUtility;
     private ProjectApplication mainApp;
 
     //factory is a singleton - only one object created
@@ -25,17 +26,11 @@ public class Factory {
     }
 
     public static UserServices getUserServices() {
-        if (userServices == null) {
-            userServices = new UserServices();
-        }
-        return userServices;
+        return UserServices.getInstance();
     }
 
     public static ClientServices getClientServices() {
-        if (clientServices == null) {
-            clientServices = new ClientServices();
-        }
-        return clientServices;
+        return ClientServices.getInstance();
     }
 
     public ProjectApplication getMainApp() {
@@ -43,5 +38,13 @@ public class Factory {
             mainApp = new ProjectApplication();
         }
         return mainApp;
+    }
+
+    public ProjectUtility getProjectServices() {
+        return ProjectUtility.getInstance();
+    }
+
+    public ManagerServices getManagerServices() {
+        return ManagerServices.getInstance();
     }
 }

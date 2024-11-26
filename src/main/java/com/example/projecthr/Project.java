@@ -129,5 +129,16 @@ public class Project {
                 ", projectProposalFilePath='" + descripPath + '\'' +
                 '}';
     }
+
+    public void loadMilestones() {
+        milestones = Factory.getFactory().getProjectServices().loadProjectMilestones(projectId);
+    }
+
+    public ArrayList<Milestone> getMilestones() {
+        if (milestones == null) {
+            loadMilestones();
+        }
+        return milestones;
+    }
 }
 
