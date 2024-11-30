@@ -2,6 +2,7 @@
 
 An Integrated HR and Project Management System
 
+
 **Scope:**
 
  Our project focuses on delivering a comprehensive HR and project management platform to cater to the needs of companies, employees, and clients. Our main focus is on the following areas:
@@ -20,6 +21,7 @@ An Integrated HR and Project Management System
 The scope of this software lies in facilitating this company with Human Resources (HR), Project Management, and - most importantly, in a tech-based world - Business Process Automation. This scope is particularly relevant for businesses to manage teams, work on multiple projects simultaneously, and for users to collaborate with companies to complete their projects efficiently.
 
 Previous Tools: Our project will be modeled off of ClickUp's core functionality - but it will take it a step further by incorporating complete company HR management.
+
 
 **Objectives:**
 
@@ -50,13 +52,20 @@ For users, the software provides a system where they can find companies, submit 
 
 
 Domain Model, Class Diagram, Action Sequence, and System Sequence Diagrams: 
+
 https://docs.google.com/document/d/1bk-TaKv7Kglxdr_AP6hUsyDdoMTIma7yA_GjaLplFrM/edit?usp=sharing
 
+
 Fully-Extended Usecase:
+
 https://docs.google.com/document/d/1YTB9dslVOjByxZkgq5HBx4uLRj11hU-TOixR6gdnn1g/edit?usp=sharing
 
+
 Documentation:
+
 https://docs.google.com/document/d/1jCtZkIpaHFeEs8pcTN8MaH87yGHfOtR7muO8jp_3e_Y/edit?usp=sharing
 
+
 PPT:
+
 https://www.canva.com/design/DAGXml_pJYo/T5YMynrTXCqkmjTw5nEcNg/view?utm_content=DAGXml_pJYo&utm_campaign=designshare&utm_medium=link&utm_source=editor
