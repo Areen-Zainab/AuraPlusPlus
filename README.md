@@ -17,17 +17,23 @@ Previous Tools: Our project will be modeled off of ClickUp's core functionality 
 
 **Objectives:**
 ★ Streamline HR and Project Management by automating processes like employee onboarding, role assignment, and project tracking.
+
 ★ Enhance User-Company Collaboration and Transparency by enabling seamless communication, project proposal submissions, milestone updates, and real-time progress tracking.
+
 ★ Centralize Resource and Data Management for easier access to employee information, project resources, and financial data in one platform.
+
 ★ Support Data-Driven Decision Making by providing reports and analytics on employee performance, project status, and resource allocation.
+
 ★ Enable Self-Service HR Functions for Employees such as updating personal information, submitting leave requests, and tracking attendance without needing HR intervention.
 
 **Problem:**
+
 Modern businesses often struggle to manage employee details, project assignments, and tracking progress efficiently across different platforms. This causes bottlenecks in operations, resulting in reduced productivity, and delayed or inadequate project deliverables.
 
 Clients, on the other hand, encounter difficulties in submitting projects and maintaining track of updates. Limited transparency and manual processes lead to frustration and slow project timelines. These issues severely undermine productivity and lead to dissatisfaction for both involved parties - clients and companies.
 
 **Solution:**
+
 Our proposed system addresses these challenges by integrating human resources and project management into a unified platform, allowing seamless collaboration between companies and users. For companies, it will handle everything from managing teams, allocating resources, and monitoring the human resources of the organization. It will also allow employees to access, and
 remain up-to-date with work-related information.
 
