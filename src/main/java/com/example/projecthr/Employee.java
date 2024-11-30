@@ -1,5 +1,7 @@
 package com.example.projecthr;
 
+import com.example.projecthr.project.Task;
+
 import java.util.ArrayList;
 
 public class Employee extends User{
@@ -11,11 +13,12 @@ public class Employee extends User{
 
     @Override
     public boolean loadUserProfile() {
-        return false;
+        return super.loadUserProfile();
     }
 
     @Override
     public void loadDashboard() {
-        ProjectApplication.switchScene("ClientDashboard.fxml", 1000, 600);
+        loadUserProfile();
+        ProjectApplication.switchScene("employeeDashboard.fxml");
     }
 }

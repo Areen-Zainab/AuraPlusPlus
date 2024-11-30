@@ -12,6 +12,6 @@ public class HRAdmin extends User{
 
     @Override
     public void loadDashboard() {
-        ProjectApplication.switchScene("ClientDashboard.fxml", 1000, 600);
+        ProjectApplication.switchScene("ClientDashboard.fxml");
     }
 }

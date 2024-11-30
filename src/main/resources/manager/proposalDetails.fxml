@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.manager.proposalDetailsController">
+    <right>
+        <Pane prefHeight="600.0" prefWidth="887.0" BorderPane.alignment="CENTER">
+            <children>
+                <Pane layoutY="100.0" prefHeight="500.0" prefWidth="805.0" style="-fx-background-color: rgba(88,109,128,255);">
+                    <children>
+                        <Pane layoutX="555.0" prefHeight="500.0" prefWidth="250.0" style="-fx-background-color: rgba(82,101,119,255);">
+                            <children>
+                                <Button fx:id="accept" layoutX="50.0" layoutY="34.0" mnemonicParsing="false" onAction="#onAcceptButtonClick" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: rgba(41,59,73,255); -fx-background-radius: 5;" text="Accept" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                </Button>
+                                <Button fx:id="reject" layoutX="50.0" layoutY="78.0" mnemonicParsing="false" onAction="#onRejectButtonClick" onMouseEntered="#onDarkMouseHoverEnter" onMouseExited="#onDarkMouseHoverExit" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: white;" text="Reject">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                </Button>
+                                <Label layoutX="11.0" layoutY="132.0" text="Add Comment" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="commentBox" layoutX="11.0" layoutY="156.0" prefHeight="25.0" prefWidth="180.0" promptText="comment.." />
+                                <Label layoutX="25.0" layoutY="226.0" text="About Client:" textFill="#293b49">
+                                    <font>
+                                        <Font name="System Bold" size="23.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="infoBox" layoutX="24.0" layoutY="272.0" prefHeight="119.0" prefWidth="199.0" text="Name:&#10;&#10;Company Name:&#10;&#10;Address:&#10;&#10;Contain No:" textFill="WHITE" wrapText="true" />
+                                <Button fx:id="sendCommentButton" layoutX="202.0" layoutY="156.0" mnemonicParsing="false" onAction="#onSendButtonClick" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" prefHeight="25.0" prefWidth="42.0" style="-fx-background-color: rgba(41,59,73,255);" text="send" textFill="WHITE">
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                </Button>
+                            </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                        </Pane>
+                <AnchorPane layoutX="30.0" layoutY="60.0" minHeight="0.0" minWidth="0.0" prefHeight="420.0" prefWidth="500.0" style="-fx-background-image: url('file:images/manbg.png');">
+                     <children>
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="-1.0" prefHeight="420.0" prefWidth="500.0" style="-fx-background-image: url('file:images/manbg.png');">
+                           <content>
+                              <VBox prefWidth="485.0" spacing="5.0" style="-fx-background-image: url('file:images/manbg.png');">
+                                 <children>
+                                          <Label fx:id="projName" text="Project Name" textFill="WHITE">
+                                              <font>
+                                                  <Font name="System Bold" size="17.0" />
+                                              </font>
+                                          </Label>
+                                          <Label fx:id="descripLabel" prefWidth="490.0" text="Description:" textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS">
+                                              <font>
+                                                  <Font name="Regular" size="13.0" />
+                                              </font>
+                                          </Label>
+                                    <HBox prefHeight="40.0" prefWidth="520.0" spacing="10.0">
+                                       <children>
+                                                <Label fx:id="budget" prefHeight="19.0" prefWidth="271.0" text="Budget:" textFill="WHITE">
+                                                    <font>
+                                                        <Font name="System Bold" size="13.0" />
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="duration" prefHeight="19.0" prefWidth="147.0" text="Duration:" textFill="WHITE">
+                                                    <font>
+                                                        <Font name="System Bold" size="13.0" />
+                                                    </font>
+                                                </Label>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </HBox>
+                                          <Label prefHeight="37.0" prefWidth="466.0" text="Attachments:" textFill="WHITE">
+                                              <font>
+                                                  <Font name="System Bold" size="17.0" />
+                                              </font>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <padding>
+                                          <Insets top="10.0" />
+                                       </padding>
+                                          </Label>
+                                    <HBox prefHeight="49.0" prefWidth="520.0" spacing="10.0">
+                                       <children>
+                                                <Label fx:id="attachment" prefHeight="30.0" prefWidth="262.0" style="-fx-border-color: white;" text="No PDF attached..." textFill="WHITE">
+                                                    <font>
+                                                        <Font size="13.0" />
+                                                    </font>
+                                                </Label>
+                                                <Button fx:id="download" mnemonicParsing="false" onAction="#onDownloadButtonClick" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: rgba(41,59,73,255);" text="Download " textFill="WHITE">
+                                                    <font>
+                                                        <Font name="System Bold" size="12.0" />
+                                                    </font>
+                                                    <cursor>
+                                                        <Cursor fx:constant="HAND" />
+                                                    </cursor>
+                                                </Button>
+                                                <Button fx:id="view" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onViewButtonClick" onMouseEntered="#onDarkMouseHoverEnter" onMouseExited="#onDarkMouseHoverExit" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: white;" text="View">
+                                                    <font>
+                                                        <Font name="System Bold" size="12.0" />
+                                                    </font>
+                                                    <cursor>
+                                                        <Cursor fx:constant="HAND" />
+                                                    </cursor>
+                                                </Button>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" top="5.0" />
+                                       </padding>
+                                    </HBox>
+                                    <Pane prefHeight="200.5" prefWidth="458.0" style="-fx-background-image: url('file:images/manbg.png');" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
+                  <Label fx:id="statusLab" layoutX="30.0" layoutY="20.0" prefHeight="35.0" prefWidth="302.0" style="-fx-text-fill: white; -fx-font-size: 12;" text="Status">
+                  </Label>
+                    </children>
+                </Pane>
+                  <Pane prefHeight="100.0" prefWidth="805.0" style="-fx-background-color: rgba(68,85,101,255);">
+                      <children>
+                          <Label fx:id="namelabel" layoutX="24.0" layoutY="42.0" prefHeight="35.0" prefWidth="302.0" style="-fx-text-fill: white; -fx-font-size: 24; -fx-font-weight: bold;" text="Project Proposals Details" />
+                      </children>
+                  </Pane>
+            </children>
+        </Pane>
+    </right>
+</BorderPane>

@@ -8,10 +8,27 @@ import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import utility.DBHandler;
+import utility.Factory;
 
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
+
+/*
+1. create project
+2. add milestone
+3. add task
+4. show project
+5. show tasks
+6. show milestones
+ */
+
 
 //primarily acts as a utility class
 public class ProjectApplication extends Application {
@@ -22,42 +39,25 @@ public class ProjectApplication extends Application {
         launch();
     }
 
-    public static Stage getStage(){
-        if (stage == null) {
-            stage = new Stage();
-        }
-        return stage;
-    }
-
     @Override
     public void start(Stage primaryStage) throws IOException {
         stage = primaryStage;
-        //ProjectApplication.switchScene("hello-view.fxml", 950, 550);
+        //ProjectApplication.switchScene("hello-view.fxml");
         ProjectApplication mainApp = Factory.getFactory().getMainApp();
-        User user = login("aounjee@company.com", "jeejee");
+
+        //client credentials
+        //User user = login("aounjee@company.com", "jeejee");
+
+        //manager credentials
+        User user = login("hafsa@gmail.com", "hafsa7076");
         mainApp.setUser(user);
         user.loadDashboard();
     }
 
     // Login function to be called from controller
     public User login(String email, String password) {
-        DBHandler dbHandler = Factory.getFactory().getDb();
+        DBHandler dbHandler = Factory.getDb();
         return dbHandler.loginValidationUser(email, password);
-    }
-
-    //static function that handles the switching of scenes
-    public static void switchScene(String fxmlFile) {
-        try {
-            FXMLLoader loader = new FXMLLoader(ProjectApplication.class.getResource(fxmlFile));
-            Parent root = loader.load();
-
-            Scene scene = new Scene(root, 950, 550);
-            stage.setTitle("WorkSphere");
-            stage.setScene(scene);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public void setUser(User currentUser) {
@@ -68,18 +68,23 @@ public class ProjectApplication extends Application {
         return currentUser;
     }
 
-    //static function that handles the switching of scenes but overloaded
-    public static void switchScene(String fxmlFile, int vv, int hh) {
+    //static function that handles the switching of scenes
+    public static void switchScene(String fxmlFile) {
         try {
             FXMLLoader loader = new FXMLLoader(ProjectApplication.class.getResource(fxmlFile));
             Parent root = loader.load();
 
-            Scene scene = new Scene(root, vv, hh);
+            Scene scene;
+            if(fxmlFile.equals("hello-view") || fxmlFile.equals("LoginForm") || fxmlFile.equals("SignupForm")){
+                scene = new Scene(root, 950, 550);
+            }
+            else scene = new Scene(root, 1000, 600);
             stage.setTitle("WorkSphere");
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
+            ProjectApplication.showAlert(Alert.AlertType.ERROR, "Error", "Unexpected Error: " + e.getMessage());
         }
     }
 
@@ -88,7 +93,7 @@ public class ProjectApplication extends Application {
         return switch (role) {
             case "Client" -> new Client(userId, userEmail);
             case "Employee" -> new Employee(userId, userEmail);
-            case "ProjectManager" -> new ProjectManager(userId, userEmail);
+            case "Project Manager" -> new ProjectManager(userId, userEmail);
             case "Admin" -> new HRAdmin(userId, userEmail);
             default -> null;
         };
@@ -111,7 +116,7 @@ public class ProjectApplication extends Application {
                 try {
                     desktop.open(pdfFile);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    ProjectApplication.showAlert(Alert.AlertType.ERROR, "Error", "Unexpected Error: " + e.getMessage());
                 }
             } else {
                 ProjectApplication.showAlert(Alert.AlertType.ERROR, "Error", "PDF file not found!");
@@ -121,20 +126,44 @@ public class ProjectApplication extends Application {
         }
     }
 
-    public static String getAttachment(Meeting meeting, Window parentWindow) {
-        if (meeting == null || parentWindow == null) {
-            throw new IllegalArgumentException("Meeting and parentWindow cannot be null.");
-        }
-
+    public static String getAttachment(Window parentWindow) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select a File");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
-
         File selectedFile = fileChooser.showOpenDialog(parentWindow);
-        if (selectedFile != null) {
-            return selectedFile.getAbsolutePath();
+        return (selectedFile == null) ? null : selectedFile.getAbsolutePath();
+    }
+
+    public static boolean isValidFilePath(String filePath) {
+        try {
+            Path path = Paths.get(filePath);
+            return Files.exists(path) || Files.isReadable(path);
+
+        } catch (Exception e) {
+            return false;
         }
-        return null;
+    }
+
+    public static void downloadFile(String pdfPath) {
+        try {
+            Path sourcePath = Path.of(pdfPath);
+            String fileName = sourcePath.getFileName().toString();
+
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save File");
+            fileChooser.setInitialFileName(fileName); // Default file name
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+
+            File selectedFile = fileChooser.showSaveDialog(stage);
+            if (selectedFile != null) {
+                Files.copy(sourcePath, selectedFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                System.out.println("File downloaded successfully to: " + selectedFile.getAbsolutePath());
+            }
+        } catch (IOException e) {
+            System.err.println("Error while downloading the file: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Unexpected error: " + e.getMessage());
+        }
     }
 
 }

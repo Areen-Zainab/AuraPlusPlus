@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane style="-fx-background-color: #8A927B;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.hr.PayrollController">
+    <top>
+        <AnchorPane prefHeight="600.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+            <children>
+                <Pane layoutX="171.0" opacity="0.5" prefHeight="101.0" prefWidth="827.0" style="-fx-background-color: #7A7D67;">
+                    <children>
+                        <Text layoutX="36.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Generate Payroll" wrappingWidth="188.02215576171875">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Text>
+                        <ImageView fitHeight="65.0" fitWidth="155.0" layoutX="644.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@logo.png" />
+                            </image>
+                        </ImageView>
+                        <Button layoutX="36.0" layoutY="67.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="64.0" style="-fx-background-color: #7A7D67;" text="Back" onAction="#onBackClick">
+                            <font>
+                                <Font name="System Bold" size="10.0" />
+                            </font>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                            <effect>
+                                <Glow />
+                            </effect>
+                        </Button>
+                    </children>
+                </Pane>
+                <Pane opacity="0.69" prefHeight="600.0" prefWidth="173.0" style="-fx-background-color: #7A7D67;">
+                    <children>
+                        <ButtonBar layoutX="-74.0" layoutY="202.0" prefHeight="40.0" prefWidth="200.0" />
+                        <Button alignment="TOP_RIGHT" layoutX="12.0" layoutY="293.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="150.0" style="-fx-background-color: #7A7D67; -fx-background-radius: 20.0;" text="Manage Employees" onAction="#onManageEmployeesClick">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                            <effect>
+                                <DropShadow />
+                            </effect>
+                        </Button>
+                        <Button layoutX="18.0" layoutY="458.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="137.0" style="-fx-background-color: #7A7D66;" text="Profile" onAction="#onProfileClick">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </Button>
+                        <Button layoutX="51.0" layoutY="503.0" mnemonicParsing="false" style="-fx-background-color: #7A7D67;" text="Log Out">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </Button>
+                        <ImageView fitHeight="92.0" fitWidth="92.0" layoutX="38.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@pfp.png" />
+                            </image>
+                        </ImageView>
+                        <Button layoutX="19.0" layoutY="242.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="136.0" style="-fx-background-color: #7A7D67; -fx-background-radius: 20.0;" text="Dashboard" onAction="#onDashboardClick">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </Button>
+                    </children>
+                </Pane>
+                <Pane layoutX="353.0" layoutY="157.0" prefHeight="419.0" prefWidth="437.0" style="-fx-background-color: #7A7D66; -fx-background-radius: 10.0;">
+                    <effect>
+                        <ColorAdjust brightness="0.03" contrast="-0.53" hue="0.11" saturation="0.14" />
+                    </effect>
+                    <children>
+                        <ImageView fitHeight="108.0" fitWidth="98.0" layoutX="170.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@pfp.png" />
+                            </image>
+                        </ImageView>
+                        <Text layoutX="80.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Text>
+                        <Text layoutX="80.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Department:">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Text>
+                        <Text layoutX="81.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Basic Salary:">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Text>
+                        <Text layoutX="82.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Deductions:">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Text>
+                        <Text layoutX="82.0" layoutY="314.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bonuses:">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Text>
+                        <Text layoutX="75.0" layoutY="352.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Net Salary:">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Text>
+                        <Button layoutX="189.0" layoutY="378.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="60.0" style="-fx-background-color: #7A7D66;" text="Print">
+                            <effect>
+                                <ColorAdjust brightness="0.03" contrast="-0.01" hue="0.06" saturation="0.06">
+                                    <input>
+                                        <DropShadow />
+                                    </input>
+                                </ColorAdjust>
+                            </effect>
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </Button>
+                    </children>
+                </Pane>
+                <TextField layoutX="489.0" layoutY="116.0" opacity="0.7" prefHeight="25.0" prefWidth="192.0" promptText="Search" style="-fx-background-radius: 10.0;">
+                    <cursor>
+                        <Cursor fx:constant="TEXT" />
+                    </cursor>
+                </TextField>
+            </children>
+            <effect>
+                <ColorAdjust />
+            </effect></AnchorPane>
+    </top>
+
+</BorderPane>

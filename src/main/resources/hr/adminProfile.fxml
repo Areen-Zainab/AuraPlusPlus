@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane style="-fx-background-color: #8A927B;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.hr.HRProfileController">
+    <top>
+        <AnchorPane prefHeight="600.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+            <children>
+                <Pane layoutX="171.0" opacity="0.5" prefHeight="101.0" prefWidth="827.0" style="-fx-background-color: #7A7D67;">
+                    <children>
+                        <Text layoutX="36.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Personal Profile" wrappingWidth="150.6888427734375">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Text>
+                        <ImageView fitHeight="65.0" fitWidth="155.0" layoutX="645.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@logo.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </Pane>
+                <Pane opacity="0.69" prefHeight="600.0" prefWidth="173.0" style="-fx-background-color: #7A7D67;">
+                    <children>
+                        <ButtonBar layoutX="-74.0" layoutY="202.0" prefHeight="40.0" prefWidth="200.0" />
+                        <Button alignment="TOP_RIGHT" layoutX="2.0" layoutY="300.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="164.0" style="-fx-background-color: #7A7D67;" text="Manage Employees" onAction="#onManageEmployeesClick">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </Button>
+                        <Button layoutX="18.0" layoutY="458.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="137.0" style="-fx-background-color: #7A7D66; -fx-background-radius: 20.0;" text="Profile">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                            <effect>
+                                <DropShadow />
+                            </effect>
+                        </Button>
+                        <Button layoutX="51.0" layoutY="503.0" mnemonicParsing="false" style="-fx-background-color: #7A7D67;" text="Log Out">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </Button>
+                        <ImageView fitHeight="92.0" fitWidth="92.0" layoutX="38.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@pfp.png" />
+                            </image>
+                        </ImageView>
+                        <Button layoutX="41.0" layoutY="254.0" mnemonicParsing="false" style="-fx-background-color: #7A7D67;" text="Dashboard" onAction="#onDashboardClick">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </Button>
+                    </children>
+                </Pane>
+                <ImageView fitHeight="95.0" fitWidth="94.0" layoutX="211.0" layoutY="118.0" opacity="0.59" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@pfp.png" />
+                    </image>
+                </ImageView>
+                <Text layoutX="363.0" layoutY="157.0" opacity="0.59" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                </Text>
+                <Text layoutX="365.0" layoutY="191.0" opacity="0.59" strokeType="OUTSIDE" strokeWidth="0.0" text="Email">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                </Text>
+                <Pane blendMode="LIGHTEN" layoutX="232.0" layoutY="239.0" opacity="0.69" prefHeight="329.0" prefWidth="707.0" style="-fx-background-color: #7A7D66;">
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                    <children>
+                        <TextField layoutX="63.0" layoutY="52.0" prefHeight="25.0" prefWidth="229.0" promptText="First Name" style="-fx-background-color: #7A7D67;" />
+                        <TextField layoutX="62.0" layoutY="97.0" prefHeight="25.0" prefWidth="230.0" promptText="Last Name" style="-fx-background-color: #7A7D67;" />
+                        <ComboBox layoutX="62.0" layoutY="152.0" prefHeight="25.0" prefWidth="63.0" promptText="+92" />
+                        <TextField layoutX="133.0" layoutY="152.0" prefHeight="25.0" prefWidth="159.0" promptText="Phone Number" style="-fx-background-color: #7A7D67;" />
+                        <DatePicker layoutX="62.0" layoutY="204.0" prefHeight="25.0" prefWidth="231.0" promptText="Date of Birth" style="-fx-background-color: #7A7D67;" />
+                        <TextField layoutX="63.0" layoutY="249.0" prefHeight="25.0" prefWidth="62.0" promptText="Gender:" style="-fx-background-color: transparent;" />
+                        <CheckBox layoutX="142.0" layoutY="253.0" mnemonicParsing="false" text="Male" textFill="#dbd3d3">
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </CheckBox>
+                        <CheckBox layoutX="223.0" layoutY="253.0" mnemonicParsing="false" text="Female" textFill="#dbd3d3">
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </CheckBox>
+                        <TextField layoutX="407.0" layoutY="52.0" prefHeight="25.0" prefWidth="230.0" promptText="Email" style="-fx-background-color: #7A7D67;" />
+                        <TextField layoutX="407.0" layoutY="97.0" prefHeight="25.0" prefWidth="230.0" promptText="Password" style="-fx-background-color: #7A7D67;" />
+                        <Button layoutX="426.0" layoutY="247.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Cancel">
+                            <font>
+                                <Font name="System Bold" size="15.0" />
+                            </font>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </Button>
+                        <Button layoutX="545.0" layoutY="247.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Save">
+                            <font>
+                                <Font name="System Bold" size="15.0" />
+                            </font>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </Button>
+                        <TextField layoutX="407.0" layoutY="177.0" prefHeight="25.0" prefWidth="230.0" promptText="Address" style="-fx-background-color: #7A7D67;" />
+                    </children>
+                </Pane>
+            </children>
+            <effect>
+                <Glow />
+            </effect></AnchorPane>
+    </top>
+
+</BorderPane>

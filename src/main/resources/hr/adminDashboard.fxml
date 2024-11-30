@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane style="-fx-background-color: #8A927B;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.hr.HRDashboardController">
+    <center>
+        <AnchorPane prefHeight="600.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+            <children>
+                <Pane layoutX="171.0" opacity="0.5" prefHeight="101.0" prefWidth="827.0" style="-fx-background-color: #7A7D67;">
+                    <children>
+                        <Text layoutX="36.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome Back" wrappingWidth="150.6888427734375">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Text>
+                        <ImageView fitHeight="65.0" fitWidth="155.0" layoutX="645.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@logo.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </Pane>
+                <Pane opacity="0.69" prefHeight="600.0" prefWidth="173.0" style="-fx-background-color: #7A7D67;">
+                    <children>
+                        <ButtonBar layoutX="-74.0" layoutY="202.0" prefHeight="40.0" prefWidth="200.0" />
+                        <Button fx:id="manageEmployeesButton" alignment="TOP_RIGHT" layoutY="300.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="164.0" style="-fx-background-color: #7A7D67;" text="Manage Employees" onAction="#onManageEmployeesClick">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </Button>
+                        <Button fx:id="profileButton" layoutX="18.0" layoutY="458.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="137.0" style="-fx-background-color: #7A7D66;" text="Profile" onAction="#onProfileClick">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </Button>
+                        <Button layoutX="51.0" layoutY="503.0" mnemonicParsing="false" style="-fx-background-color: #7A7D67;" text="Log Out">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </Button>
+                        <ImageView fitHeight="92.0" fitWidth="92.0" layoutX="38.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@pfp.png" />
+                            </image>
+                        </ImageView>
+                        <Button layoutX="19.0" layoutY="251.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="136.0" style="-fx-background-color: #7A7D67; -fx-background-radius: 20.0;" text="Dashboard">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                            <effect>
+                                <DropShadow />
+                            </effect>
+                        </Button>
+                    </children>
+                </Pane>
+                <Pane blendMode="LIGHTEN" layoutX="231.0" layoutY="229.0" opacity="0.69" prefHeight="341.0" prefWidth="388.0" style="-fx-background-color: #7A7D66;">
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                    <children>
+                        <PieChart layoutX="40.0" layoutY="29.0" prefHeight="284.0" prefWidth="308.0" startAngle="95.2" />
+                    </children>
+                </Pane>
+                <Pane blendMode="LIGHTEN" layoutX="231.0" layoutY="141.0" opacity="0.69" prefHeight="53.0" prefWidth="169.0" style="-fx-background-color: #7A7D66;">
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                    <children>
+                        <Text layoutX="14.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employees">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Text>
+                        <ImageView fitHeight="32.0" fitWidth="35.0" layoutX="123.0" layoutY="11.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@employee.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </Pane>
+                <Pane blendMode="LIGHTEN" layoutX="449.0" layoutY="141.0" opacity="0.69" prefHeight="53.0" prefWidth="169.0" style="-fx-background-color: #7A7D66;">
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                    <children>
+                        <Text layoutX="14.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clients">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Text>
+                        <ImageView fitHeight="31.0" fitWidth="48.0" layoutX="115.0" layoutY="11.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@client.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </Pane>
+                <Pane blendMode="LIGHTEN" layoutX="663.0" layoutY="141.0" opacity="0.69" prefHeight="432.0" prefWidth="311.0" style="-fx-background-color: #7A7D66;">
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                    <children>
+                        <Pane blendMode="LIGHTEN" layoutX="19.0" layoutY="74.0" opacity="0.5" prefHeight="339.0" prefWidth="275.0" style="-fx-background-color: #7A7D67; -fx-background-radius: 20.0;" />
+                        <Text layoutX="29.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recent Activity">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Text>
+                    </children>
+                </Pane>
+            </children>
+            <effect>
+                <Glow />
+            </effect></AnchorPane>
+    </center>
+
+</BorderPane>
