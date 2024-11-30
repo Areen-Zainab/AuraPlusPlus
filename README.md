@@ -5,10 +5,15 @@ An Integrated HR and Project Management System
 **Scope:**
 
  Our project focuses on delivering a comprehensive HR and project management platform to cater to the needs of companies, employees, and clients. Our main focus is on the following areas:
+ 
 ➔ Human Resources Management
+
 ➔ Project Management
+
 ➔ User Interaction
+
 ➔ Reporting and Analytics
+
 
 **Domain:** For the foreseeable future, this project will be limited to Aura++ - a tech conglomerate. 
 
