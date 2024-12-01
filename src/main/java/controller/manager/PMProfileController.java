@@ -23,9 +23,7 @@ public class PMProfileController {
     @FXML private DatePicker dobPicker;
     @FXML private ComboBox<String> genderComboBox;
     @FXML private TextField addressField;
-
     @FXML private ComboBox<String> numCodeBox;
-
     @FXML private ImageView editPFP;
 
     @FXML
@@ -116,7 +114,6 @@ public class PMProfileController {
     @FXML public void onEditPFPClick(){
         System.out.println("Edit PFP clicked");
     }
-
     @FXML public void cancelChanges() {
         loadProfile(); // Reload the profile details from the database
     }
@@ -169,7 +166,6 @@ public class PMProfileController {
     }
 
     @FXML public void addSkill(){
-
     }
 
     public void loadProfile() {
