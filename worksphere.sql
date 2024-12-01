@@ -41,7 +41,7 @@ CREATE TABLE Employees (
     department VARCHAR(50) NOT NULL,
     position VARCHAR(50) NOT NULL,
     salary DECIMAL(10,2) NOT NULL,
-    join_date DATE NOT NULL,
+    join_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     -- work_calendar_id INT,
     FOREIGN KEY (employee_id) REFERENCES Users(user_id)
     -- FOREIGN KEY (work_calendar_id) REFERENCES WorkCalendar(calendar_id)
@@ -80,7 +80,7 @@ CREATE TABLE ProjectProposal (
     title TEXT NOT NULL,
     description TEXT NOT NULL,
     duration varchar(50) NOT NULL,
-    budget DECIMAL(12,2) NOT NULL, 
+    budget DECIMAL(12,2) NOT NULL,
     submission_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     review_date TIMESTAMP NULL,                          -- Updated when reviewed
     comments TEXT,
@@ -109,7 +109,7 @@ CREATE TABLE Projects (
     FOREIGN KEY (proposal_id) REFERENCES ProjectProposal(ProposalID)
 );
 
--- 10 
+-- 10
 CREATE TABLE Milestones (
     milestoneID INT AUTO_INCREMENT PRIMARY KEY,
     project_id INT NOT NULL,
@@ -121,8 +121,8 @@ CREATE TABLE Milestones (
     status ENUM('In Progress', 'Completed', 'Delayed') NOT NULL,
     priority ENUM('Low', 'Medium', 'High') DEFAULT 'Medium',
     milestone_report VARCHAR(255),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,    
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (project_id) REFERENCES Projects(project_id)
 );
 
@@ -199,7 +199,7 @@ CREATE TABLE ProjectHistory (
     milestone_id INT DEFAULT NULL,               -- Optional milestone associated with the action
     task_id INT DEFAULT NULL,                    -- Optional task associated with the action
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- When the action occurred
-    actionType ENUM('Viewed', 'Printed', 'Downloaded', 'Created', 'Updated', 'Completed', 'Deleted', 'Status Changed') NOT NULL, 
+    actionType ENUM('Viewed', 'Printed', 'Downloaded', 'Created', 'Updated', 'Completed', 'Deleted', 'Status Changed') NOT NULL,
     description TEXT,                             -- Description of the action
     user_id INT,                                  -- ID of the user who performed the action
     FOREIGN KEY (project_id) REFERENCES Projects(project_id),
@@ -276,10 +276,10 @@ CREATE TABLE ClientLog (
 
 DELIMITER $$
 CREATE PROCEDURE LogClientChange(
-    IN p_client_id INT, 
-    IN p_table_name VARCHAR(50), 
-    IN p_action_type ENUM('Inserted', 'Created', 'Updated', 'Deleted'), 
-    IN p_affected_record_id INT, 
+    IN p_client_id INT,
+    IN p_table_name VARCHAR(50),
+    IN p_action_type ENUM('Inserted', 'Created', 'Updated', 'Deleted'),
+    IN p_affected_record_id INT,
     IN p_description TEXT
 )
 BEGIN
@@ -301,7 +301,7 @@ BEGIN
 END $$
 
 
-CREATE FUNCTION GetUserName(user_id INT) 
+CREATE FUNCTION GetUserName(user_id INT)
 RETURNS VARCHAR(101)
 DETERMINISTIC
 BEGIN
@@ -322,7 +322,7 @@ BEGIN
     FROM Projects p
     JOIN ProjectProposal pp ON p.proposal_id = pp.ProposalID
     WHERE p.project_id = project_id
-    LIMIT 1;  
+    LIMIT 1;
     RETURN project_name;
 END $$
 
@@ -380,15 +380,15 @@ BEGIN
     CALL LogClientChange( NEW.client_id, 'Projects', 'Updated', NEW.project_id, CONCAT('Project (', GetProjectName(NEW.project_id), ' for the Client, ', GetUserName(client_id), ') details were updated.'));
 	IF NEW.status <> OLD.status THEN
         CALL InsertProjectHistoryProc(
-            NEW.project_id, NULL, NULL, 'Status Changed', 
-            CONCAT('Project status changed from "', OLD.status, '" to "', NEW.status, '".'), 
+            NEW.project_id, NULL, NULL, 'Status Changed',
+            CONCAT('Project status changed from "', OLD.status, '" to "', NEW.status, '".'),
             NULL -- user_id
         );
     END IF;
-    
+
     IF NEW.start_date <> OLD.start_date OR NEW.end_date <> OLD.end_date THEN
         CALL InsertProjectHistoryProc(
-            NEW.project_id, NULL, NULL, 
+            NEW.project_id, NULL, NULL,
             'Updated', CONCAT('The project ,', GetProjectName(project_id), '\'s, timeline was updated.'),
             NULL                          -- user_id (optional, NULL if not available)
         );
@@ -432,9 +432,9 @@ BEGIN
     CALL LogClientChange((SELECT client_id FROM Projects WHERE project_id = NEW.project_id LIMIT 1),
 		'Milestones', 'Created', NEW.project_id, CONCAT('New Milestone, ', NEW.milestone_name, ', has been added to the project (', GetProjectName(NEW.project_id), ' .'));
     CALL InsertProjectHistoryProc(
-        NEW.project_id, NEW.milestoneID, 
+        NEW.project_id, NEW.milestoneID,
         NULL,                                                    -- No task_id, since this is a milestone creation
-        'Created', CONCAT('Milestone "', NEW.milestone_name, '" has been created for project "', GetProjectName(NEW.project_id)), 
+        'Created', CONCAT('Milestone "', NEW.milestone_name, '" has been created for project "', GetProjectName(NEW.project_id)),
         (SELECT manager_id FROM Projects WHERE project_id = NEW.project_id LIMIT 1)    -- The user (manager_id) performing the milestone creation (Project Manager)
     );
 END $$
@@ -446,12 +446,12 @@ BEGIN
     -- Log milestone update
     CALL LogClientChange((SELECT client_id FROM Projects WHERE project_id = NEW.project_id LIMIT 1),
 		'Milestones', 'Updated', NEW.project_id, CONCAT('Milestone, ', NEW.milestone_name, ' (Project: ', GetProjectName(NEW.project_id),' status has been updated from ', OLD.status, ' to ', NEW.status, ' .'));
-		
+
     IF NEW.status <> OLD.status THEN
         CALL InsertProjectHistoryProc(
-			NEW.project_id, NEW.milestoneID, 
+			NEW.project_id, NEW.milestoneID,
 			NULL,                                                    -- No task_id, since this is a milestone creation
-			'Created', CONCAT('Milestone, ', NEW.milestone_name, ' (Project: ', GetProjectName(NEW.project_id),' status has been updated from ', OLD.status, ' to ', NEW.status, ' .'), 
+			'Created', CONCAT('Milestone, ', NEW.milestone_name, ' (Project: ', GetProjectName(NEW.project_id),' status has been updated from ', OLD.status, ' to ', NEW.status, ' .'),
 			(SELECT manager_id FROM Projects WHERE project_id = NEW.project_id LIMIT 1)    -- The user (manager_id) performing the milestone creation (Project Manager)
 		);
     END IF;
@@ -461,7 +461,7 @@ DELIMITER ;
 -- --------------------------------------------------------------------------------------------------
 -- Data Insertion
 INSERT INTO Users (Fname, Lname, password, role, email, gender, DoB, phone_no, address, join_date)
-VALUES 
+VALUES
 ('Basharat', 'Hussain', 'pass123', 'Employee', 'basharat.hussain@gmail.com', 'Male', '1980-01-01', '123-456-7890', 'street 2 H11/4', '2024-01-15'),
 ('Hafsa', 'Imtiaz', 'hafsa7076', 'Project Manager', 'hafsa@gmail.com', 'Female', '2003-07-06', '987-654-3210', 'street 13 I8/4', '2022-08-10'),
 ('Aoun', 'Jee', 'jeejee', 'Client', 'aounjee@company.com', 'Male', '2004-07-06', '555-123-4567', 'street 43 Model Town', '2023-11-01'),
@@ -471,29 +471,29 @@ VALUES
 
 -- Insert data into Clients table
 INSERT INTO Clients (client_id, company_name)
-VALUES 
+VALUES
 (3, 'Code Smith'),
 (6, 'Genesis IT Lab');
 
 -- Insert data into ProjectManagers table
 INSERT INTO ProjectManagers (PM_id, department, years_of_experience)
-VALUES 
+VALUES
 (2, 'IT', 5);
 
 -- Insert data into Employees table
 INSERT INTO Employees (employee_id, department, position, salary, join_date)
-VALUES 
+VALUES
 (1, 'Development', 'Software Engineer', 60000.00, '2024-01-15'),
 (4, 'Designing', 'UI/UX Specialist', 50000.00, '2024-02-01');
 
 -- Insert data into HR_Managers table
 INSERT INTO HR_Managers (HR_id, department, years_of_experience)
-VALUES 
+VALUES
 (5, 'HR', 10);  -- Areen (HR Manager) has 10 years of experience in the HR department not in company
 
 -- Insert data into Skills table
 INSERT INTO Skills (skill_name, skill_description)
-VALUES 
+VALUES
 ('Java', 'Proficiency in Java programming language'),
 ('Project Management', 'Expertise in managing IT projects'),
 ('HR Management', 'Experience in human resources management');
@@ -501,16 +501,16 @@ VALUES
 
 -- Insert data into EmployeeSkills table
 INSERT INTO EmployeeSkills (employee_id, skill_id)
-VALUES 
+VALUES
 (1, 1),  -- Basharat (Employee) has Java skill
 (4, 2);  -- Mahum (Employee) has Project Management skill
 
 use worksphere;
 INSERT INTO ProjectProposal (client_id, title, description, duration, budget, comments, pdf_path, status, project_manager_id) VALUES
-(3, 'Aaap App', 'The Smart Home Automation System is designed to provide seamless control and monitoring of household appliances through a mobile app or web interface. The system uses a combination of sensors, cloud computing, and IoT devices to allow users to control lights, heating, security systems, and other devices from anywhere. 
-Users can automate tasks such as adjusting thermostat settings based on the time of day or controlling lights remotely via voice commands. 
-The platform is built with user convenience in mind, featuring easy integration with existing home systems and compatibility with popular smart assistants like Alexa and Google Home. 
-Security features include real-time alerts and video surveillance accessible through the mobile app. Additionally, the system provides detailed analytics to help users track energy consumption and optimize resource usage. The overall aim is to enhance home safety, comfort, and energy efficiency through innovative and', '6 months', 25000, 'Initial proposal for review', 
+(3, 'Aaap App', 'The Smart Home Automation System is designed to provide seamless control and monitoring of household appliances through a mobile app or web interface. The system uses a combination of sensors, cloud computing, and IoT devices to allow users to control lights, heating, security systems, and other devices from anywhere.
+Users can automate tasks such as adjusting thermostat settings based on the time of day or controlling lights remotely via voice commands.
+The platform is built with user convenience in mind, featuring easy integration with existing home systems and compatibility with popular smart assistants like Alexa and Google Home.
+Security features include real-time alerts and video surveillance accessible through the mobile app. Additionally, the system provides detailed analytics to help users track energy consumption and optimize resource usage. The overall aim is to enhance home safety, comfort, and energy efficiency through innovative and', '6 months', 25000, 'Initial proposal for review',
 '"C:\Users\Hafsa\OneDrive\Documents\uni\Semester 5\Theory of Automata\i22-0959_H_A1.pdf"', 'Pending', null),
 (3, 'Sada', 'Research and feasibility study for a mobile app.', '6 months', 25000, 'Initial proposal for review', '"C:\Users\Hafsa\OneDrive\Documents\uni\Semester 5\Theory of Automata\i22-0959_H_A1.pdf"', 'Pending', null),
 (3, 'Sada', 'Research and feasibility study for a mobile app.', '6 months', 25000, 'Initial proposal for review', '"C:\Users\Hafsa\OneDrive\Documents\uni\Semester 5\Theory of Automata\i22-0959_H_A1.pdf"', 'Approved', 2);
@@ -526,14 +526,14 @@ VALUES
 use worksphere;
 -- Insert data into Milestones table
 INSERT INTO Milestones (project_id, milestone_name, description, start_date, end_date, comments, status)
-VALUES 
+VALUES
 (1, 'Initial Planning', 'Initial planning and project scoping for Project ABC', '2024-01-15', '2024-01-30', 'Kickoff meeting scheduled', 'In Progress'),  -- Milestone for Project 1 (Project ABC)
 (1, 'Development', 'Development phase for Project ABC', '2024-02-01', '2024-03-01', 'Work on modules and tasks', 'In Progress'), -- Milestone for Project 1 (Project ABC)
 (2, 'Research', 'Research and feasibility study for Project XYZ', '2024-02-01', '2024-02-20', 'Research phase ongoing', 'In Progress');  -- Milestone for another project (XYZ)
 
 -- Insert data into Tasks table
 INSERT INTO Tasks (milestone_id, assigned_to, task_name, description, deadline, priority, status, assigned_date)
-VALUES 
+VALUES
 (1, 1, 'Develop Login Module', 'Develop the login module for the new system', '2024-02-10', 'High', 'Pending', '2024-02-01'),  -- Task for Basharat
 (1, 4, 'Design login page', 'Design the login page for the website ', '2024-02-15', 'Medium', 'Pending', '2024-02-01');  -- Task for Mahum
 
