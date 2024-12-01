@@ -34,8 +34,8 @@ public class ProjectManager extends User{
     @Override
     public void loadDashboard() {
         loadUserProfile();
-        ProjectApplication.switchScene("/manager/PMProposal.fxml");
-        //ProjectApplication.switchScene("/manager/PMDashboard.fxml");
+        //ProjectApplication.switchScene("/manager/PMProjects.fxml");
+        ProjectApplication.switchScene("/manager/PMDashboard.fxml");
     }
 
     @Override

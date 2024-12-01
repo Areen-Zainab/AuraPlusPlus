@@ -10,6 +10,16 @@ public class Task {
     private String description;
     private Date deadline;
     private int assignedTo;  // References Employee or Project Manager
+
+    public String getEmpName() {
+        return empName;
+    }
+
+    public void setEmpName(String empName) {
+        this.empName = empName;
+    }
+
+    private String empName;
     private Date assignedDate;
     private String priority;
     private String status;
@@ -20,7 +30,7 @@ public class Task {
     // Constructor
     public Task(int taskId, int milestoneId, String taskName, String description, Date deadline,
                 int assignedTo, Date assignedDate, String priority, String status, String comments,
-                String taskAttachment, Timestamp updatedAt) {
+                String taskAttachment, Timestamp updatedAt, String empName) {
         this.taskId = taskId;
         this.milestoneId = milestoneId;
         this.taskName = taskName;
@@ -33,6 +43,7 @@ public class Task {
         this.comments = comments;
         this.taskAttachment = taskAttachment;
         this.updatedAt = updatedAt;
+        this.empName = empName;
     }
 
     // Getters and Setters

@@ -20,45 +20,10 @@ public class proposalDetailsController {
     @FXML private Label projName, descripLabel, budget, duration, attachment, infoBox, statusLab;
     @FXML private Button download, view, accept, reject, sendCommentButton;
     @FXML private TextField commentBox;
-
-    @FXML
-    protected void onLogoutButtonClick() {
-        System.out.println("Logout Button clicked");
-        ProjectApplication.switchScene("LoginForm.fxml");
-    }
-
-    @FXML
-    protected void onProfileButtonClick() throws IOException {
-        System.out.println("Profile Button clicked");
-        ProjectApplication.switchScene("/manager/PMProfile.fxml");
-    }
-    @FXML
-    protected void onProjectButtonClick()throws IOException {
-        System.out.println("Project Button clicked");
-        ProjectApplication.switchScene("/manager/PMProjects.fxml");
-    }
-
-    @FXML
-    protected void onProposalButtonClick() throws IOException {
-        System.out.println("Create Project Button clicked");
-        ProjectApplication.switchScene("/manager/PMProposal.fxml");
-    }
-
     @FXML protected void onMeetingButtonClick() {
         ProjectApplication.switchScene("/manager/manageMeetings.fxml");
     }
 
-
-    @FXML
-    protected void onWorkCalendarButtonClick() {
-        System.out.println("Update Button clicked");
-    }
-
-    @FXML
-    protected void onDashboardButtonClick() throws IOException {
-        System.out.println("Dashboard Button clicked");
-        ProjectApplication.switchScene("/manager/PMDashboard.fxml");
-    }
 
     @FXML
     public void onMouseEntered(MouseEvent event) {
@@ -198,7 +163,7 @@ public class proposalDetailsController {
         }
         if(proj.getClient_id() > 0){
             client = new Client(proj.getClient_id());
-            infoBox.setText("Name: " + client.getFirstName() + " " + client.getLastName() + "\n\n" + "Company: " + (client.isIndependent() ? "Independence Client" : client.getCompanyName()) + "\n\nAddress: " + client.getAddress() + "\n\nContact No: " + client.getPhoneNo());
+            infoBox.setText("Name: " + client.getFirstName() + " " + client.getLastName() + "\n\n" + "Company: " + (client.isIndependent() ? "Independent Client" : client.getCompanyName()) + "\n\nAddress: " + client.getAddress() + "\n\nContact: " + client.getPhoneNo() + ", " + client.getEmail());
         }
 
         statusLab.setText(proj.getStatus());

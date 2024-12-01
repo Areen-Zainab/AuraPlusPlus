@@ -2,13 +2,12 @@ package utility;
 
 import com.example.projecthr.Meeting;
 import com.example.projecthr.ProjectManager;
-import com.example.projecthr.project.Milestone;
-import com.example.projecthr.project.Project;
-import com.example.projecthr.project.ProjectProposal;
+import com.example.projecthr.project.*;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -45,9 +44,10 @@ public class ProjectUtility {
                     String priority = resultSet.getString("priority");
                     Timestamp updated_at = resultSet.getTimestamp("updated_at");
                     Timestamp created_at = resultSet.getTimestamp("created_at");
+                    String filename = resultSet.getString("milestone_report");
 
                     // Add the milestone to the list
-                    milestones.add(new Milestone(milestoneID, projectID, milestoneName, description, startDate, endDate, comments, status, priority, created_at, updated_at));
+                    milestones.add(new Milestone(milestoneID, projectID, milestoneName, description, startDate, endDate, comments, status, priority, created_at, updated_at, filename));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -195,6 +195,184 @@ public class ProjectUtility {
             Factory.getDb().closeResources(null, null, connection);
         }
         return false;
+    }
+
+    public int getActive(ArrayList<Project> projects) {
+        int count = 0;
+        for (Project proj : projects) {
+            if (proj.getStatus().equalsIgnoreCase("Active")) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public int getCompleted(ArrayList<Project> projects) {
+        int count = 0;
+        for (Project proj : projects) {
+            if (proj.getStatus().equalsIgnoreCase("Completed")) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public ArrayList<Project> getCompleteProjects(ArrayList<Project> projects) {
+        ArrayList<Project> completeProjects = new ArrayList<>();
+        for (Project proj : projects) {
+            if (proj.getStatus().equalsIgnoreCase("Completed")) {
+                completeProjects.add(proj);
+            }
+        }
+        return completeProjects;
+    }
+
+    public ArrayList<Project> getActiveProjects(ArrayList<Project> projects) {
+        ArrayList<Project> activeProjects = new ArrayList<>();
+        for (Project proj : projects) {
+            if (proj.getStatus().equalsIgnoreCase("Active")) {
+                activeProjects.add(proj);
+            }
+        }
+        return activeProjects;
+    }
+
+    public ArrayList<Project> getUnstartedProjects(ArrayList<Project> projects) {
+        ArrayList<Project> activeProjects = new ArrayList<>();
+        for (Project proj : projects) {
+            if (proj.getStatus().equalsIgnoreCase("Not Started")) {
+                activeProjects.add(proj);
+            }
+        }
+        return activeProjects;
+    }
+
+    public ArrayList<ProjectLog> getLogs(int project_id) {
+        ArrayList<ProjectLog> projectLogs = new ArrayList<>();
+        ResultSet resultSet = null;
+        Connection connection = null;
+
+        try {
+            connection = DBHandler.getConnection();
+            String query = "SELECT h.history_id, h.project_id, COALESCE(pp.title, '') AS project_title, h.milestone_id, COALESCE(m.milestone_name, '') AS milestone_name, h.task_id, COALESCE(t.task_name, '') AS task_name, h.timestamp, h.actionType, h.description, h.user_id, CONCAT(u.fname, ' ', u.lname) as username FROM ProjectHistory h LEFT JOIN projects p ON h.project_id = p.project_id LEFT JOIN ProjectProposal pp ON p.proposal_id = pp.ProposalID LEFT JOIN milestones m ON h.milestone_id = m.milestoneID LEFT JOIN tasks t ON h.task_id = t.task_id LEFT JOIN users u ON h.user_id = u.user_id WHERE h.project_id = ? ORDER BY h.timestamp DESC";
+            resultSet = Factory.getDb().executeSelectQuery(query, project_id);
+
+            while (resultSet != null && resultSet.next()) {
+                ProjectLog projectHistory = new ProjectLog();
+
+                projectHistory.setProjectHistory(
+                        resultSet.getInt("history_id"),
+                        resultSet.getInt("project_id"),
+                        resultSet.getString("project_title"),
+                        resultSet.getInt("milestone_id"),
+                        resultSet.getString("milestone_name"),
+                        resultSet.getInt("task_id"),
+                        resultSet.getString("task_name"),
+                        resultSet.getTimestamp("timestamp"),
+                        resultSet.getString("actionType"),
+                        resultSet.getString("description"),
+                        resultSet.getInt("user_id"),
+                        resultSet.getString("username")
+                );
+
+                projectLogs.add(projectHistory);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Factory.getDb().closeResources(resultSet, null, connection);
+        }
+
+        return projectLogs;
+    }
+
+    public ArrayList<Task> getTasksByMilestoneId(int milestoneId) {
+        ArrayList<Task> tasks = new ArrayList<>();
+        ResultSet rs = null;
+        Connection connection = null;
+        String query = "SELECT t.task_id, t.milestone_id, t.task_name, t.description, t.deadline, t.assigned_to, t.assigned_date, t.priority, t.status, t.comments, t.task_attachment, t.updated_at, CONCAT(u.fname, ' ', u.lname) AS assigned_to_name FROM Tasks t LEFT JOIN Users u ON t.assigned_to = u.user_id WHERE t.milestone_id = ? ORDER BY t.assigned_date ASC;";
+        try {
+            connection = DBHandler.getConnection();
+            rs = Factory.getDb().executeSelectQuery(query, milestoneId);
+            // Loop through the result set and create Task objects
+            while ((rs != null && rs.next())) {
+                int taskId = rs.getInt("task_id");
+                String taskName = rs.getString("task_name");
+                String description = rs.getString("description");
+                Date deadline = rs.getDate("deadline");
+                int assignedTo = rs.getInt("assigned_to");
+                Date assignedDate = rs.getDate("assigned_date");
+                String priority = rs.getString("priority");
+                String status = rs.getString("status");
+                String comments = rs.getString("comments");
+                String taskAttachment = rs.getString("task_attachment");
+                Timestamp updatedAt = rs.getTimestamp("updated_at");
+                String assignedName = rs.getString("assigned_to_name");
+
+                // Create a Task object and add it to the list
+                Task task = new Task(taskId, milestoneId, taskName, description, deadline, assignedTo, assignedDate,
+                        priority, status, comments, taskAttachment, updatedAt, assignedName);
+                tasks.add(task);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();  // Handle any SQL exceptions
+        }
+
+        return tasks;
+    }
+
+    public ArrayList<Task> fetchNextTasks(ArrayList<Project> projects) {
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        for(Project project : projects) {
+            ArrayList<Milestone> ms = project.getMilestones();
+            for(Milestone m : ms) {
+                ArrayList<Task> tsk = m.getTasks();
+                for(Task task : tsk) {
+                    Date today = Date.valueOf(LocalDate.now());
+                    if(!task.getDeadline().before(today))
+                        tasks.add(task);
+                }
+            }
+        }
+        return tasks;
+    }
+
+    public int getPendingTaskCount(ArrayList<Task> tasks){
+        int count = 0;
+        for(Task task : tasks) {
+            if(task.getStatus().equalsIgnoreCase("Pending")){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public int getPendingExtensionRequests(ArrayList<Project> pjs){
+        int count = 0;
+        // will complete implementation
+        return count;
+    }
+
+    public ArrayList<Task> filterTasks(ArrayList<Task> tasks, String filter) {
+        ArrayList<Task> filteredTasks = new ArrayList<>();
+        if(filter.equalsIgnoreCase("Pending") || filter.equalsIgnoreCase("Completed") || filter.equalsIgnoreCase("Not Started")) {
+            for (Task task : tasks) {
+                if (task.getStatus().equalsIgnoreCase(filter)) {
+                    filteredTasks.add(task);
+                }
+            }
+        }
+        else if(filter.equalsIgnoreCase("Urgent") || filter.equalsIgnoreCase("High") || filter.equalsIgnoreCase("Medium") || filter.equalsIgnoreCase("Low")) {
+            for (Task task : tasks) {
+                if (task.getPriority().equalsIgnoreCase(filter)) {
+                    filteredTasks.add(task);
+                }
+            }
+        }
+        return filteredTasks;
+
     }
 
 }

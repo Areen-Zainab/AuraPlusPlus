@@ -1,5 +1,7 @@
 package com.example.projecthr.project;
 
+import utility.Factory;
+
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -18,10 +20,11 @@ public class Milestone {
     private String priority;
     private Timestamp createdAt;
     private Timestamp updatedAt;
+    private String filePath;
 
     // Constructor
     public Milestone(int milestoneId, int projectId, String milestoneName, String description, Date startDate,
-                     Date endDate, String comments, String status, String priority, Timestamp createdAt, Timestamp updatedAt) {
+                     Date endDate, String comments, String status, String priority, Timestamp createdAt, Timestamp updatedAt, String filePath) {
         this.milestoneId = milestoneId;
         this.projectId = projectId;
         this.milestoneName = milestoneName;
@@ -33,6 +36,7 @@ public class Milestone {
         this.priority = priority;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.filePath = filePath;
     }
 
     // Getters and Setters
@@ -124,19 +128,25 @@ public class Milestone {
         this.updatedAt = updatedAt;
     }
 
-    public String toString() {
-        return "Milestone{" +
-                "milestoneId=" + milestoneId +
-                ", projectId=" + projectId +
-                ", milestoneName='" + milestoneName + '\'' +
-                ", description='" + description + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", comments='" + comments + '\'' +
-                ", status='" + status + '\'' +
-                ", priority='" + priority + '\'' +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
+    public ArrayList<Task> getTasks() {
+        if(tasks == null)
+            loadTasks();
+        return tasks;
+    }
+
+    public void setTasks(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public void loadTasks(){
+        tasks = Factory.getProjectServices().getTasksByMilestoneId(milestoneId);
     }
 }

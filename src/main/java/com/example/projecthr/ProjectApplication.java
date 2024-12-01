@@ -20,13 +20,14 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 
+//Project Manager:
 /*
 1. create project
 2. add milestone
 3. add task
-4. show project
-5. show tasks
-6. show milestones
+4. edit upar wali cheezain
+6. workcalender
+7. skills
  */
 
 
@@ -130,8 +131,12 @@ public class ProjectApplication extends Application {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select a File");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
-        File selectedFile = fileChooser.showOpenDialog(parentWindow);
-        return (selectedFile == null) ? null : selectedFile.getAbsolutePath();
+        try {
+            return fileChooser.showOpenDialog(parentWindow).getAbsolutePath();
+        }
+        catch (Exception e) {
+            return null;
+        }
     }
 
     public static boolean isValidFilePath(String filePath) {

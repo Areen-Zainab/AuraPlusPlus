@@ -133,7 +133,7 @@ public class Project {
     }
 
     public void loadMilestones() {
-        milestones = Factory.getFactory().getProjectServices().loadProjectMilestones(projectId);
+        milestones = Factory.getProjectServices().loadProjectMilestones(projectId);
     }
 
     public ArrayList<Milestone> getMilestones() {

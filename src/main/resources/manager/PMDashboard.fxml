@@ -6,6 +6,8 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.Glow?>
@@ -53,7 +55,7 @@
                                         <Cursor fx:constant="HAND" />
                                     </cursor>
                                 </Button>
-                                <Button fx:id="meetingButton" onAction="#onMeetingButtonClick" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" prefHeight="35.0" prefWidth="156.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-background-radius: 20;" text="Meetings">
+                                <Button fx:id="meetingButton" onAction="#onMeetingButtonClick" onMouseClicked="#onMeetingButtonClick" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" prefHeight="35.0" prefWidth="156.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-background-radius: 20;" text="Meetings">
                                     <font>
                                         <Font name="System Bold" size="12.0" />
                                     </font>
@@ -126,7 +128,7 @@
                                         <Font name="System Bold" size="14.0" />
                                     </font>
                                 </Label>
-                        <Label fx:id="projCount" alignment="CENTER" layoutX="65.0" layoutY="40.0" prefHeight="60.0" prefWidth="97.0" text="Proj" textFill="WHITE">
+                        <Label fx:id="projCount" alignment="CENTER" layoutX="65.0" layoutY="40.0" prefHeight="60.0" prefWidth="97.0" text="N/A" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
@@ -145,7 +147,7 @@
                                         <Font name="System Bold" size="14.0" />
                                     </font>
                                 </Label>
-                        <Label fx:id="deadCount" alignment="CENTER" layoutX="65.0" layoutY="40.0" prefHeight="60.0" prefWidth="97.0" text="Deadlines" textFill="WHITE">
+                        <Label fx:id="deadCount" alignment="CENTER" layoutX="65.0" layoutY="40.0" prefHeight="60.0" prefWidth="97.0" text="N/A" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
@@ -163,21 +165,31 @@
                                         <Font name="System Bold" size="14.0" />
                                     </font>
                                 </Label>
-                        <Label fx:id="taskCount" alignment="CENTER" layoutX="65.0" layoutY="40.0" prefHeight="60.0" prefWidth="97.0" text="Task" textFill="WHITE">
+                        <Label fx:id="taskCount" alignment="CENTER" layoutX="65.0" layoutY="40.0" prefHeight="60.0" prefWidth="97.0" text="N/A" textFill="WHITE">
                            <font>
-                              <Font name="System Bold" size="13.0" />
+                              <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
                             </children></Pane>
-                        <Pane layoutX="34.0" layoutY="219.0" opacity="0.72" prefHeight="255.0" prefWidth="471.0" style="-fx-background-color: rgba(41,59,73,255); -fx-background-radius: 10;">
+                        <Pane fx:id="todayPane" layoutX="34.0" layoutY="219.0" opacity="0.72" prefHeight="255.0" prefWidth="471.0" style="-fx-background-color: rgba(41,59,73,255); -fx-background-radius: 10;">
                             <children>
-                                <Label layoutX="22.0" layoutY="14.0" prefHeight="19.0" prefWidth="94.0" text="Today Tasks:" textFill="#f4f1f1">
+                                <Label fx:id="taskLabLab" layoutX="22.0" layoutY="14.0" prefHeight="19.0" prefWidth="94.0" text="Today Tasks:" textFill="#f4f1f1">
                                     <font>
                                         <Font name="System Bold" size="13.0" />
                                     </font>
                                 </Label>
                                 <ComboBox fx:id="statusComboBox" layoutX="350.0" layoutY="11.0" prefHeight="25.0" prefWidth="97.0" promptText="Status" visibleRowCount="5" />
                                 <ComboBox fx:id="priorityComboBox" layoutX="240.0" layoutY="11.0" prefHeight="25.0" prefWidth="93.0" promptText="Priority" />
+                        <TableView fx:id="taskTable" layoutX="16.0" layoutY="50.0" prefHeight="191.0" prefWidth="431.0" style="-fx-background-color: transparent; -fx-text-fill: white;">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="C1" />
+                            <TableColumn prefWidth="75.0" text="C2" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                        <Label fx:id="Lab" layoutX="139.0" layoutY="6.0" text="Label" />
                             </children>
                         </Pane>
                         <Pane layoutX="521.0" layoutY="219.0" opacity="0.7" prefHeight="115.0" prefWidth="265.0" style="-fx-background-color: rgba(41,59,73,255); -fx-background-radius: 10;">
@@ -192,10 +204,13 @@
                            <children>
                               <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" prefHeight="65.0" prefWidth="225.0" style="-fx-border-color: transparent; -fx-background-color: rgba(41,59,73,255);">
                                  <content>
-                                    <Label fx:id="meetingList" alignment="TOP_LEFT" prefHeight="60.5" prefWidth="225.0" style="-fx-background-color: rgba(41,59,73,255); -fx-border-color: transparent;" text="meetings ki list&#10;" textFill="WHITE" wrapText="true">
+                                    <Label fx:id="meetingList" alignment="TOP_LEFT" onMouseClicked="#onMeetingButtonClick" prefHeight="60.5" prefWidth="225.0" style="-fx-background-color: rgba(41,59,73,255); -fx-border-color: transparent;" text="meetings ki list&#10;" textFill="WHITE" wrapText="true">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </Label>
                                  </content>
                               </ScrollPane>
@@ -218,10 +233,13 @@
                            <children>
                               <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" prefHeight="65.0" prefWidth="225.0" style="-fx-background-color: rgba(41,59,73,255);">
                                  <content>
-                                    <Label fx:id="proposeList" alignment="TOP_LEFT" prefHeight="64.0" prefWidth="225.0" style="-fx-background-color: rgba(41,59,73,255);" text="meetings ki list&#10;" textFill="WHITE" wrapText="true">
+                                    <Label fx:id="proposeList" alignment="TOP_LEFT" onMouseClicked="#onProposalButtonClick" prefHeight="64.0" prefWidth="225.0" style="-fx-background-color: rgba(41,59,73,255);" text="meetings ki list&#10;" textFill="WHITE" wrapText="true">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </Label>
                                  </content>
                               </ScrollPane>
@@ -241,9 +259,9 @@
                                         <Font name="System Bold" size="14.0" />
                                     </font>
                                 </Label>
-                        <Label fx:id="requestCount" alignment="CENTER" layoutX="65.0" layoutY="40.0" prefHeight="60.0" prefWidth="97.0" text="Request" textFill="WHITE">
+                        <Label fx:id="requestCount" alignment="CENTER" layoutX="65.0" layoutY="40.0" prefHeight="60.0" prefWidth="97.0" text="N/A" textFill="WHITE">
                            <font>
-                              <Font name="System Bold" size="13.0" />
+                              <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
                             </children>
