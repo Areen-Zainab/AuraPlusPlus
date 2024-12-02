@@ -14,7 +14,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane style="-fx-background-color: #8A927B;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.employee.EmpDashboardController">
+<BorderPane style="-fx-background-color: #8A927B;" xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.employee.EmpDashboardController">
     <center>
         <AnchorPane prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #99885E;" BorderPane.alignment="CENTER">
             <children>
@@ -34,7 +35,7 @@
                 </Pane>
                 <Pane opacity="0.69" prefHeight="600.0" prefWidth="173.0" style="-fx-background-color: #736647;">
                     <children>
-                        <Button layoutX="15.0" layoutY="458.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="137.0" style="-fx-background-color: #736647; -fx-background-radius: 20.0;" text="Profile" onAction="#onProfileClick">
+                        <Button layoutX="15.0" layoutY="458.0" mnemonicParsing="false" onAction="#onProfileClick" prefHeight="29.0" prefWidth="137.0" style="-fx-background-color: #736647; -fx-background-radius: 20.0;" text="Profile">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
@@ -55,7 +56,7 @@
                                 <Image url="@pfp.png" />
                             </image>
                         </ImageView>
-                        <Button layoutX="14.0" layoutY="313.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="146.0" style="-fx-background-color: #736647; -fx-background-radius: 20.0;" text="Edit Attendance" onAction="#onEditAttendanceClick">
+                        <Button layoutX="17.0" layoutY="245.0" mnemonicParsing="false" onAction="#onEditAttendanceClick" prefHeight="29.0" prefWidth="146.0" style="-fx-background-color: #736647; -fx-background-radius: 20.0;" text="Attendance">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
@@ -63,7 +64,7 @@
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </Button>
-                        <Button layoutX="14.0" layoutY="351.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="146.0" style="-fx-background-color: #736647; -fx-background-radius: 20.0;" text="My Leave Requests" onAction="#onMyLeaveRequestsClick">
+                        <Button layoutX="17.0" layoutY="280.0" mnemonicParsing="false" onAction="#onMyLeaveRequestsClick" prefHeight="29.0" prefWidth="146.0" style="-fx-background-color: #736647; -fx-background-radius: 20.0;" text="My Leave Requests">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
@@ -71,7 +72,7 @@
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </Button>
-                        <Button layoutX="14.0" layoutY="204.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="146.0" style="-fx-background-color: #736647; -fx-background-radius: 20.0;" text="View Tasks" onAction="#onViewTasksClick">
+                        <Button layoutX="14.0" layoutY="205.0" mnemonicParsing="false" onAction="#onViewTasksClick" prefHeight="29.0" prefWidth="146.0" style="-fx-background-color: #736647; -fx-background-radius: 20.0;" text="Task Manager">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
@@ -79,7 +80,7 @@
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </Button>
-                        <Button layoutX="13.0" layoutY="389.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="148.0" style="-fx-background-color: #736647; -fx-background-radius: 20.0;" text="Work Calendar" onAction="#onWorkCalendarClick">
+                        <Button layoutX="13.0" layoutY="320.0" mnemonicParsing="false" onAction="#onWorkCalendarClick" prefHeight="29.0" prefWidth="148.0" style="-fx-background-color: #736647; -fx-background-radius: 20.0;" text="Work Calendar">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
@@ -87,23 +88,7 @@
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </Button>
-                        <Button layoutX="37.0" layoutY="240.0" mnemonicParsing="false" style="-fx-background-color: #736647;" text="Submit Task" onAction="#onSubmitTaskClick">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                            <cursor>
-                                <Cursor fx:constant="HAND" />
-                            </cursor>
-                        </Button>
-                        <Button layoutX="32.0" layoutY="277.0" mnemonicParsing="false" style="-fx-background-color: #736647;" text="View Projects" onAction="#onViewProjectsClick">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                            <cursor>
-                                <Cursor fx:constant="HAND" />
-                            </cursor>
-                        </Button>
-                        <Button layoutX="19.0" layoutY="168.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="141.0" style="-fx-background-color: #736647; -fx-background-radius: 20.0;" text="Dashboard">
+                        <Button layoutX="19.0" layoutY="165.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="141.0" style="-fx-background-color: #736647; -fx-background-radius: 20.0;" text="Dashboard">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>

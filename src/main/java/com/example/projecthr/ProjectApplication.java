@@ -18,18 +18,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-
-
-//Project Manager:
-/*
-1. create project
-2. add milestone
-3. add task
-4. edit upar wali cheezain
-6. workcalender
-7. skills
- */
-
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 //primarily acts as a utility class
 public class ProjectApplication extends Application {
@@ -43,16 +34,19 @@ public class ProjectApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         stage = primaryStage;
-        //ProjectApplication.switchScene("hello-view.fxml");
+        ProjectApplication.switchScene("hello-view.fxml");
         ProjectApplication mainApp = Factory.getFactory().getMainApp();
 
         //client credentials
         //User user = login("aounjee@company.com", "jeejee");
 
         //manager credentials
-        User user = login("hafsa@gmail.com", "hafsa7076");
-        mainApp.setUser(user);
-        user.loadDashboard();
+       // User user = login("hafsa@gmail.com", "hafsa7076");
+
+        //employee credentials
+        //User user = login("basharat.hussain@gmail.com", "pass123");
+        //mainApp.setUser(user);
+        //user.loadDashboard();
     }
 
     // Login function to be called from controller
@@ -76,8 +70,11 @@ public class ProjectApplication extends Application {
             Parent root = loader.load();
 
             Scene scene;
-            if(fxmlFile.equals("hello-view") || fxmlFile.equals("LoginForm") || fxmlFile.equals("SignupForm")){
+            if(fxmlFile.equals("hello-view.fxml") || fxmlFile.equals("LoginForm.fxml") || fxmlFile.equals("SignupForm.fxml")){
                 scene = new Scene(root, 950, 550);
+            }
+            else if (fxmlFile.equals("/manager/createProject.fxml")){
+                scene = new Scene(root, 800, 600);
             }
             else scene = new Scene(root, 1000, 600);
             stage.setTitle("WorkSphere");
@@ -171,4 +168,47 @@ public class ProjectApplication extends Application {
         }
     }
 
+    public static Date addTimelineToCurrentDate(String timeline) {
+        try {
+            String[] parts = timeline.split(" ");
+            int amount = Integer.parseInt(parts[0]);
+            String unit = parts[1].toLowerCase();
+
+            LocalDate currentDate = LocalDate.now();
+
+            switch (unit) {
+                case "days":
+                case "day":
+                    currentDate = currentDate.plusDays(amount);
+                    break;
+                case "weeks":
+                case "week":
+                    currentDate = currentDate.plusWeeks(amount);
+                    break;
+                case "months":
+                case "month":
+                    currentDate = currentDate.plusMonths(amount);
+                    break;
+                case "years":
+                case "year":
+                    currentDate = currentDate.plusYears(amount);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid time unit: " + unit);
+            }
+
+            return Date.valueOf(currentDate);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }
+
+//Project Manager:
+/*
+6. workcalender
+7. skills
+8. extension requests
+ */

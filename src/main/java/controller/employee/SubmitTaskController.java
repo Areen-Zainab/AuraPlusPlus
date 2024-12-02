@@ -8,36 +8,36 @@ import java.io.IOException;
 public class SubmitTaskController {
     @FXML
     protected void onDashboardClick() throws IOException {
-        ProjectApplication.switchScene("employeeDashboard.fxml");
+        ProjectApplication.switchScene("/employee/employeeDashboard.fxml");
     }
 
     @FXML
     protected void onViewTasksClick() throws IOException {
-        ProjectApplication.switchScene("employeeViewTasks.fxml");
+        ProjectApplication.switchScene("/employee/employeeViewTasks.fxml");
     }
 
     @FXML
     protected void onViewProjectsClick() throws IOException {
-        ProjectApplication.switchScene("employeeViewProjects.fxml");
+        ProjectApplication.switchScene("/employee/employeeViewProjects.fxml");
     }
 
     @FXML
     protected void onEditAttendanceClick() throws IOException {
-        ProjectApplication.switchScene("employeeEditAttendance.fxml");
+        ProjectApplication.switchScene("/employee/employeeEditAttendance.fxml");
     }
 
     @FXML
     protected void onMyLeaveRequestsClick() throws IOException {
-        ProjectApplication.switchScene("employeeLeaveRequests.fxml");
+        ProjectApplication.switchScene("/employee/employeeLeaveRequests.fxml");
     }
 
     @FXML
     protected void onWorkCalendarClick() throws IOException {
-        ProjectApplication.switchScene("employeeWorkCalendar.fxml");
+        ProjectApplication.switchScene("/employee/employeeWorkCalendar.fxml");
     }
 
     @FXML
     protected void onProfileClick() throws IOException {
-        ProjectApplication.switchScene("employeeProfile.fxml");
+        ProjectApplication.switchScene("/employee/employeeProfile.fxml");
     }
 }

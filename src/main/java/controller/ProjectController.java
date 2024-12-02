@@ -230,4 +230,5 @@ public class ProjectController {
         controls.getChildren().addAll(openPdfButton, status2);
         return proposalPanel;
     }
+
 }

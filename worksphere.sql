@@ -103,6 +103,7 @@ CREATE TABLE Projects (
     status ENUM('Not Started','Active', 'Completed', 'Cancelled', 'Delayed') NOT NULL DEFAULT 'Not Started',
     final_cost DECIMAL(12,2),
     final_report VARCHAR(255),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (client_id) REFERENCES Clients(client_id),
     FOREIGN KEY (manager_id) REFERENCES ProjectManagers(PM_id),
@@ -118,7 +119,7 @@ CREATE TABLE Milestones (
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
     comments TEXT,
-    status ENUM('In Progress', 'Completed', 'Delayed') NOT NULL,
+    status ENUM('In Progress', 'Completed', 'Delayed') NOT NULL DEFAULT 'In Progress',
     priority ENUM('Low', 'Medium', 'High') DEFAULT 'Medium',
     milestone_report VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -138,7 +139,8 @@ CREATE TABLE Tasks (
     priority ENUM('Low', 'Medium', 'High') DEFAULT 'Medium',
     status ENUM('Pending', 'Completed', 'Rejected - Re-Do') DEFAULT 'Pending',
     comments TEXT,
-    task_attachment VARCHAR(255),
+    task_details VARCHAR(255) DEFAULT NULL,
+    task_attachment VARCHAR(255) DEFAULT NULL,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Timestamp for last update
     FOREIGN KEY (milestone_id) REFERENCES Milestones(milestoneID),
     FOREIGN KEY (assigned_to) REFERENCES Employees(employee_id)
@@ -377,7 +379,7 @@ AFTER UPDATE ON Projects
 FOR EACH ROW
 BEGIN
 	-- log client relevant changes
-    CALL LogClientChange( NEW.client_id, 'Projects', 'Updated', NEW.project_id, CONCAT('Project (', GetProjectName(NEW.project_id), ' for the Client, ', GetUserName(client_id), ') details were updated.'));
+    CALL LogClientChange(NEW.client_id, 'Projects', 'Updated', NEW.project_id, CONCAT('Project (', GetProjectName(NEW.project_id), ' for the Client, ', GetUserName(NEW.client_id), ') details were updated.'));
 	IF NEW.status <> OLD.status THEN
         CALL InsertProjectHistoryProc(
             NEW.project_id, NULL, NULL, 'Status Changed',

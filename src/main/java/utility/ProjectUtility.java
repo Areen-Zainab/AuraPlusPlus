@@ -29,7 +29,7 @@ public class ProjectUtility {
         ResultSet resultSet = null;
 
         try {
-            resultSet = Factory.getFactory().getDb().executeSelectQuery(query, project_id);
+            resultSet = Factory.getDb().executeSelectQuery(query, project_id);
             try {
                 while (resultSet.next()) {
                     // Create a Milestone object from the result set
@@ -56,7 +56,7 @@ public class ProjectUtility {
             e.printStackTrace();
         }
         finally {
-            Factory.getFactory().getDb().closeResources(resultSet, null, null);
+            Factory.getDb().closeResources(resultSet, null, null);
         }
 
         return milestones;
@@ -74,7 +74,7 @@ public class ProjectUtility {
         try {
             connection = DBHandler.getConnection();
             String query = "SELECT * FROM Meetings WHERE project_id = ? ORDER BY meeting_date DESC, meeting_time DESC";
-            resultSet = Factory.getFactory().getDb().executeSelectQuery(query, project_id);
+            resultSet = Factory.getDb().executeSelectQuery(query, project_id);
 
             while (resultSet != null && resultSet.next()) {
                 Meeting meeting = new Meeting();
@@ -97,7 +97,7 @@ public class ProjectUtility {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            Factory.getFactory().getDb().closeResources(resultSet, null, connection);
+            Factory.getDb().closeResources(resultSet, null, connection);
         }
         return meetings;
     }
@@ -288,11 +288,9 @@ public class ProjectUtility {
 
     public ArrayList<Task> getTasksByMilestoneId(int milestoneId) {
         ArrayList<Task> tasks = new ArrayList<>();
-        ResultSet rs = null;
-        Connection connection = null;
+        ResultSet rs;
         String query = "SELECT t.task_id, t.milestone_id, t.task_name, t.description, t.deadline, t.assigned_to, t.assigned_date, t.priority, t.status, t.comments, t.task_attachment, t.updated_at, CONCAT(u.fname, ' ', u.lname) AS assigned_to_name FROM Tasks t LEFT JOIN Users u ON t.assigned_to = u.user_id WHERE t.milestone_id = ? ORDER BY t.assigned_date ASC;";
         try {
-            connection = DBHandler.getConnection();
             rs = Factory.getDb().executeSelectQuery(query, milestoneId);
             // Loop through the result set and create Task objects
             while ((rs != null && rs.next())) {
@@ -314,6 +312,7 @@ public class ProjectUtility {
                         priority, status, comments, taskAttachment, updatedAt, assignedName);
                 tasks.add(task);
             }
+            Factory.getDb().closeResources(rs, null, null);
 
         } catch (SQLException e) {
             e.printStackTrace();  // Handle any SQL exceptions
@@ -349,6 +348,7 @@ public class ProjectUtility {
         return count;
     }
 
+    //incomplete
     public int getPendingExtensionRequests(ArrayList<Project> pjs){
         int count = 0;
         // will complete implementation
@@ -373,6 +373,178 @@ public class ProjectUtility {
         }
         return filteredTasks;
 
+    }
+
+    public boolean insertProject(int proposalId, int clientId, int managerId, Date endDate, String status, double finalCost, String finalReport) {
+        String query = "INSERT INTO Projects (proposal_id, client_id, manager_id, start_date, end_date, status, final_cost, final_report, created_at) " +
+                "VALUES (?, ?, ?, NOW(), ?, 'Not Started', ?, ?, NOW())";
+
+        Object[] params;
+        if(finalCost == -1.0) {
+            query = "INSERT INTO Projects (proposal_id, client_id, manager_id, start_date, end_date, status, final_report, created_at) " +
+                    "VALUES (?, ?, ?, NOW(), ?, 'Not Started', ?, NOW())";
+            params = new Object[]{proposalId, clientId, managerId, endDate, finalReport};
+        }
+        else
+            params = new Object[]{proposalId, clientId, managerId, endDate, finalCost, finalReport};
+
+        try {
+            return Factory.getDb().executeUpdateQuery(query, params) > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public int getLatestProject() {
+        String query = "SELECT project_id FROM Projects ORDER BY created_at DESC LIMIT 1";
+
+        try {
+            ResultSet resultSet = Factory.getDb().executeSelectQuery(query);
+            try {
+                if (resultSet.next()) {
+                    return resultSet.getInt("project_id");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                Factory.getDb().closeResources(resultSet, null, null);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+        return 0;
+    }
+
+    public boolean insertTask(String taskName, String description, Date deadline, String taskDetails, String priority, int milestoneId, int assignedTo) {
+        String query = "INSERT INTO Tasks (task_name, description, deadline, task_details, priority, milestone_id, assigned_to, assigned_date) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, NOW())";
+        Object[] params = {taskName, description, deadline, taskDetails, priority, milestoneId, assignedTo};
+
+        try {
+            return Factory.getDb().executeUpdateQuery(query, params) > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean insertMilestone(String milestoneName, String description, Date deadline, String priority, int projectID) {
+        String query = "INSERT INTO Milestones (milestone_name, description, start_date, end_date, priority, status, project_id) VALUES (?, ?, NOW(), ?, ?, 'In Progress', ?)";
+        Object[] params = {milestoneName, description, deadline, priority, projectID};
+
+        try {
+            return Factory.getDb().executeUpdateQuery(query, params) > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean updateTaskStatusToCompleted(Task task) {
+        String query = "UPDATE tasks SET status = 'Completed', task_attachment = ?, updated_at = NOW() WHERE task_id = ?";
+        Object[] params = {task.getTaskAttachment(), task.getTaskId()};
+
+        try {
+            return Factory.getDb().executeUpdateQuery(query, params) > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean insertTaskExtension(int taskId, int requestedBy, String reason, Date newDeadline) {
+        String query = "INSERT INTO TaskExtensions (task_id, requested_by, reason, new_deadline, status) VALUES (?, ?, ?, ?, 'Pending')";
+        Object[] params = {taskId, requestedBy, reason, newDeadline};
+
+        try {
+            return Factory.getDb().executeUpdateQuery(query, params) > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean areAllTasksComplete(ArrayList<Task> tasks) {
+        for (Task task : tasks) {
+            if (!task.getStatus().equals("Completed")) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean areAllMilestonesComplete(ArrayList<Milestone> milestones) {
+        for (Milestone m : milestones) {
+            if (!m.getStatus().equals("Completed")) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean updateProjectStatus(int projectId, String status) {
+        String query = "UPDATE Projects SET status = ? WHERE project_id = ?";
+        Object[] params = {status, projectId};
+
+        try {
+            return Factory.getDb().executeUpdateQuery(query, params) > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean updateMilestoneStatus(int milestoneID, String status) {
+        String query = "UPDATE Milestones SET status = ?, updated_at = NOW() WHERE milestoneID = ?";
+        Object[] params = {status, milestoneID};
+
+        try {
+            return Factory.getDb().executeUpdateQuery(query, params) > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean updateProjectHistory(int projectId, Integer milestoneId, Integer taskId, String actionType, String description, int userId) {
+        String query = "INSERT INTO ProjectHistory (project_id, milestone_id, task_id, actionType, description, user_id) VALUES (?, ?, ?, ?, ?, ?)";
+
+        Object[] params = {projectId, milestoneId, taskId, actionType, description, userId};
+
+        try {
+            return Factory.getDb().executeUpdateQuery(query, params) > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static Task getLatestUpdatedTask(ArrayList<Task> tasks) {
+        Task latestTask = null;
+
+        for (Task task : tasks) {
+            if (latestTask == null || task.getUpdatedAt().after(latestTask.getUpdatedAt())) {
+                latestTask = task;
+            }
+        }
+
+        return latestTask;
+    }
+
+    public boolean updateTaskAssignment(int taskId, int employeeId) {
+        String query = "UPDATE Tasks SET assigned_to = ?, status = 'Pending' WHERE task_id = ?";
+
+        Object[] params = {employeeId, taskId};
+
+        try {
+            return Factory.getDb().executeUpdateQuery(query, params) > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 }

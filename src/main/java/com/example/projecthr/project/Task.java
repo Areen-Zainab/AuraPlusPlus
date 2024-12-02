@@ -2,6 +2,7 @@ package com.example.projecthr.project;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 public class Task {
     private int taskId;
@@ -9,25 +10,38 @@ public class Task {
     private String taskName;
     private String description;
     private Date deadline;
-    private int assignedTo;  // References Employee or Project Manager
-
-    public String getEmpName() {
-        return empName;
-    }
-
-    public void setEmpName(String empName) {
-        this.empName = empName;
-    }
-
+    private int assignedTo; // References Employee or Project Manager
     private String empName;
     private Date assignedDate;
     private String priority;
     private String status;
     private String comments;
+    private String taskDetails; // Newly added field
     private String taskAttachment;
     private Timestamp updatedAt;
 
     // Constructor
+    public Task(){}
+
+    public Task(int taskId, int milestoneId, String taskName, String description, Date deadline,
+                int assignedTo, Date assignedDate, String priority, String status, String comments,
+                String taskDetails, String taskAttachment, Timestamp updatedAt, String empName) {
+        this.taskId = taskId;
+        this.milestoneId = milestoneId;
+        this.taskName = taskName;
+        this.description = description;
+        this.deadline = deadline;
+        this.assignedTo = assignedTo;
+        this.assignedDate = assignedDate;
+        this.priority = priority;
+        this.status = status;
+        this.comments = comments;
+        this.taskDetails = taskDetails;
+        this.taskAttachment = taskAttachment;
+        this.updatedAt = updatedAt;
+        this.empName = empName;
+    }
+
     public Task(int taskId, int milestoneId, String taskName, String description, Date deadline,
                 int assignedTo, Date assignedDate, String priority, String status, String comments,
                 String taskAttachment, Timestamp updatedAt, String empName) {
@@ -95,6 +109,14 @@ public class Task {
         this.assignedTo = assignedTo;
     }
 
+    public String getEmpName() {
+        return empName;
+    }
+
+    public void setEmpName(String empName) {
+        this.empName = empName;
+    }
+
     public Date getAssignedDate() {
         return assignedDate;
     }
@@ -127,6 +149,14 @@ public class Task {
         this.comments = comments;
     }
 
+    public String getTaskDetails() {
+        return taskDetails;
+    }
+
+    public void setTaskDetails(String taskDetails) {
+        this.taskDetails = taskDetails;
+    }
+
     public String getTaskAttachment() {
         return taskAttachment;
     }
@@ -143,6 +173,7 @@ public class Task {
         this.updatedAt = updatedAt;
     }
 
+    @Override
     public String toString() {
         return "Task{" +
                 "taskId=" + taskId +
@@ -151,10 +182,12 @@ public class Task {
                 ", description='" + description + '\'' +
                 ", deadline=" + deadline +
                 ", assignedTo=" + assignedTo +
+                ", empName='" + empName + '\'' +
                 ", assignedDate=" + assignedDate +
                 ", priority='" + priority + '\'' +
                 ", status='" + status + '\'' +
                 ", comments='" + comments + '\'' +
+                ", taskDetails='" + taskDetails + '\'' +
                 ", taskAttachment='" + taskAttachment + '\'' +
                 ", updatedAt=" + updatedAt +
                 '}';

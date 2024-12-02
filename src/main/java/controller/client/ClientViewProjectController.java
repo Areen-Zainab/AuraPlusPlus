@@ -3,10 +3,15 @@ package controller.client;
 import com.example.projecthr.*;
 import com.example.projecthr.project.Milestone;
 import com.example.projecthr.project.Project;
+import com.example.projecthr.project.ProjectLog;
+import controller.manager.PMViewProjectController;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.*;
@@ -16,6 +21,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import utility.Factory;
 import utility.ProjectUtility;
@@ -30,7 +36,7 @@ public class ClientViewProjectController {
     ProjectManager manager;
     ArrayList<Meeting> meetings;
 
-    @FXML private VBox parentVBox;
+    @FXML private VBox parentVBox, historyVBox;
     @FXML public void initialize() {
         currentUser = Factory.getFactory().getMainApp().getUser();
     }
@@ -44,17 +50,25 @@ public class ClientViewProjectController {
             button.setStyle("-fx-background-color:  rgba(80, 45, 20, 0.6); -fx-text-fill: white;  -fx-background-radius: 20;");
         }
     }
-    @FXML private void closeForm() { ((Stage) parentVBox.getScene().getWindow()).close();}
+    @FXML private void closeForm() { if(parentVBox != null) ((Stage) parentVBox.getScene().getWindow()).close();
+    else ((Stage) historyVBox.getScene().getWindow()).close();}
 
     public void setProject(Project project) {
         this.proj = project;
         try {
             manager = ProjectUtility.getInstance().getProjectManager(proj.getManagerId());
             meetings = ProjectUtility.getInstance().getProjectMeetings(proj.getProjectId());
-            displayProjectDetails();
+            if(parentVBox != null) {
+                displayProjectDetails();
+            }
+            else{
+                ArrayList<ProjectLog> logs = Factory.getProjectServices().getLogs(proj.getProjectId());
+                showLogs(logs);
+            }
         }
         catch (Exception e) {
             ProjectApplication.showAlert(Alert.AlertType.ERROR, "Error", "Project could not load.");
+            closeForm();
         }
     }
 
@@ -132,6 +146,19 @@ public class ClientViewProjectController {
             parentVBox.getChildren().add(meetingLabel);
             displayMeetings();
         }
+
+        HBox row6 = new HBox(5);
+        row6.setPadding(new Insets(5, 0, 0, 0));
+        row6.setAlignment(Pos.CENTER);
+        Button viewHistoryButton = new Button("View Project History");
+        viewHistoryButton.setPrefSize(150, 30);
+        viewHistoryButton.setStyle("-fx-background-color: rgba(50, 20, 10, 0.9); -fx-text-fill: white; -fx-background-radius: 10;");
+        viewHistoryButton.setOnMouseEntered(_ -> viewHistoryButton.setStyle("-fx-background-color: rgba(25, 13, 5, 0.9); -fx-background-radius: 10; -fx-text-fill: white;"));
+        viewHistoryButton.setOnMouseExited(_ -> viewHistoryButton.setStyle("-fx-background-color: rgba(50, 20, 10, 0.9); -fx-background-radius: 10; -fx-text-fill: white;"));
+        viewHistoryButton.setOnMouseClicked(_ -> openHistory());
+        viewHistoryButton.setPadding(new Insets(10, 10, 10, 0));
+        row6.getChildren().addAll(viewHistoryButton);
+        parentVBox.getChildren().add(row6);
     }
 
     private Button getButton() {
@@ -144,7 +171,6 @@ public class ClientViewProjectController {
         viewProposalButton.setOnMouseExited(_ -> viewProposalButton.setStyle("-fx-background-color: rgba(50, 20, 10, 0.9); -fx-background-radius: 10; -fx-text-fill: white;"));
         return viewProposalButton;
     }
-
     private void displayMilestones() {
         milestones.sort(Comparator.comparing(Milestone::getStartDate));
         for (Milestone milestone : milestones) {
@@ -178,7 +204,6 @@ public class ClientViewProjectController {
             parentVBox.getChildren().add(milestoneBox);
         }
     }
-
     private void displayMeetings(){
         for(Meeting meeting : meetings) {
             VBox meetingBox = new VBox(10);
@@ -220,9 +245,68 @@ public class ClientViewProjectController {
             parentVBox.getChildren().add(meetingBox);
         }
     }
-
     private void openMilestone(Milestone milestone) {
 
+    }
+
+    private void openHistory(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/historyScrollView.fxml"));
+            Parent newFormRoot = loader.load();
+
+            ClientViewProjectController controller = loader.getController();
+            controller.setProject(proj);
+            Stage newFormStage = new Stage();
+            newFormStage.setScene(new Scene(newFormRoot));
+            newFormStage.setTitle("Project History - " + proj.getTitle());
+
+            newFormStage.initModality(Modality.APPLICATION_MODAL);
+            newFormStage.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void showLogs(ArrayList<ProjectLog> logs){
+        historyVBox.getChildren().clear();
+        Label lab = new Label(proj.getTitle() + "- Project Logs");
+        lab.setStyle("-fx-font-weight: bold; -fx-font-size: 17px; -fx-text-fill: white");
+        lab.setWrapText(true);
+        lab.setPadding(new Insets(10));
+        historyVBox.getChildren().add(lab);
+
+        for(ProjectLog log : logs){
+            HBox logBox = new HBox(10);
+            logBox.setPadding(new Insets(5, 10, 5, 10));  // Padding for the HBox
+            logBox.setStyle("-fx-background-color: rgba(20, 60, 90, 0.7); -fx-background-radius: 10;");
+            logBox.setSpacing(10);
+
+            Label logTitle = new Label(log.getDisplayName());
+            logTitle.setStyle("-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: white");
+
+            Label logDescription = new Label(log.getDescription());
+            logDescription.setStyle("-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 12px;");
+            logDescription.setMaxWidth(450); // Set the max width to wrap text
+            logDescription.setWrapText(true); // Enable text wrapping
+
+            Label doneBy = new Label("Done By: " + log.getUsername());
+            doneBy.setStyle("-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 10px;");
+            doneBy.setMaxWidth(450); // Set the max width to wrap text
+            doneBy.setWrapText(true); // Enable text wrapping
+
+            Label timeLab = new Label("Timestamp: " + log.getTimestamp().toString());
+            timeLab.setStyle("-fx-font-size: 12px; -fx-text-fill: #5ed1e5");
+
+            VBox milestoneDetailsBox = new VBox(5);
+            milestoneDetailsBox.setPadding(new Insets(10, 0, 10, 0));
+            milestoneDetailsBox.getChildren().addAll(logTitle, logDescription, doneBy, timeLab);
+            logBox.getChildren().addAll(milestoneDetailsBox);
+
+            logBox.setOnMouseEntered(_ -> logBox.setStyle("-fx-background-color: rgba(20, 60, 90, 255); -fx-background-radius: 10; -fx-text-fill: white;"));
+            logBox.setOnMouseExited(_ -> logBox.setStyle("-fx-background-color: rgba(20, 60, 90, 0.7); -fx-background-radius: 10; -fx-text-fill: white;"));
+
+            historyVBox.getChildren().add(logBox);
+
+        }
     }
 }
 

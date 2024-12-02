@@ -124,6 +124,10 @@ public class PMProjectController {
             newFormStage.setTitle("Project - " + project.getTitle());
             newFormStage.initModality(Modality.APPLICATION_MODAL);
             newFormStage.showAndWait();
+            loadActiveProjects(Factory.getProjectServices().getActiveProjects(projects));
+            loadCompleteProjects(Factory.getProjectServices().getCompleteProjects(projects));
+            loadUnstartedProjects(Factory.getProjectServices().getUnstartedProjects(projects));
+
         } catch (Exception e) {
             e.printStackTrace();
         }

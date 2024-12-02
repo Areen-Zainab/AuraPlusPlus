@@ -29,6 +29,18 @@ public abstract class User {
         this.userId = userId;
     }
 
+    public User(int userId, String email, String password, String firstName, String lastName, String gender, String dob, String phoneNo, String address) {
+        this.userId = userId;
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.dob = dob;
+        this.phoneNo = phoneNo;
+        this.address = address;
+    }
+
     public abstract void loadDashboard() throws IOException;
 
     public boolean loadUserProfile() {

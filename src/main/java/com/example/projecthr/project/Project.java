@@ -2,6 +2,7 @@ package com.example.projecthr.project;
 
 import utility.Factory;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -21,6 +22,21 @@ public class Project {
     private String descripPath; //get from proposal
 
     // Constructor
+    public Project(String projectName, int clientId, int managerId, Date startDate, Date endDate,
+                   String status, String description, double final_cost, int budget, String projectProposalFilePath) {
+        this.projectId = projectId;
+        this.title = projectName;
+        this.clientId = clientId;
+        this.managerId = managerId;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.status = status;
+        this.description = description;
+        this.final_cost = final_cost;
+        this.budget = budget;
+        this.descripPath = projectProposalFilePath;
+    }
+
     public Project(int projectId, String projectName, int clientId, int managerId, Date startDate, Date endDate,
                    String status, String description, double final_cost, int budget, String projectProposalFilePath) {
         this.projectId = projectId;
@@ -141,6 +157,21 @@ public class Project {
             loadMilestones();
         }
         return milestones;
+    }
+
+    public Milestone getLatestMilestone() {
+        if (milestones == null) {
+            loadMilestones();
+        }if(milestones.isEmpty())
+            return null;
+        Milestone m = milestones.getFirst();
+        for(int i = 1; i < milestones.size(); i++){
+            if(m.getStartDate().before(milestones.get(i).getEndDate())){
+                m = milestones.get(i);
+            }
+        }
+        return m;
+
     }
 }
 

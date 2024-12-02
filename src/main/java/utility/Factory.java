@@ -2,6 +2,7 @@ package utility;
 
 import com.example.projecthr.ProjectApplication;
 import utility.user.ClientServices;
+import utility.user.EmployeeServices;
 import utility.user.ManagerServices;
 import utility.user.UserServices;
 
@@ -47,5 +48,9 @@ public class Factory {
 
     public static MeetingUtility getMeetingServices() {
         return MeetingUtility.getInstance();
+    }
+
+    public static EmployeeServices getEmployeeServices(){
+        return EmployeeServices.getInstance();
     }
 }

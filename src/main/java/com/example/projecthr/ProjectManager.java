@@ -34,8 +34,8 @@ public class ProjectManager extends User{
     @Override
     public void loadDashboard() {
         loadUserProfile();
-        //ProjectApplication.switchScene("/manager/PMProjects.fxml");
         ProjectApplication.switchScene("/manager/PMDashboard.fxml");
+        //ProjectApplication.switchScene("/manager/PMProjects.fxml");
     }
 
     @Override
@@ -126,6 +126,10 @@ public class ProjectManager extends User{
         }
         if(!meeting.updateMeeting())
             throw new Exception("Failed to make changes.");
+    }
+
+    public void reloadProjects() {
+        projects = Factory.getManagerServices().getProjects(userId);
     }
 
 }

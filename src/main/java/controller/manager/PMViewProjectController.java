@@ -88,6 +88,7 @@ public class PMViewProjectController {
         if(proj == null) {
             closeForm();
         }
+        parentVBox.getChildren().clear();
         parentVBox.getChildren().add(titleRow("Project Title: " + proj.getTitle()));// 1st Row: Project Title
         parentVBox.getChildren().add(descriptionRow(proj.getDescription()));// 2nd Row: Description (wrapped text description)
 
@@ -116,7 +117,26 @@ public class PMViewProjectController {
         Button management = getButton("Project Management");
         management.setOnMouseClicked(_ -> manageScreen());
         management.setPadding(new Insets(10, 10, 10, 0));
-        row6.getChildren().addAll(viewHistoryButton, management);
+
+        Button completeButton = getButton("Mark As Complete");
+        completeButton.setOnMouseClicked(_ -> {
+            if(Factory.getProjectServices().updateProjectStatus(proj.getProjectId(), "Completed")) {
+                proj.setStatus("Completed");
+                ProjectApplication.showAlert(Alert.AlertType.INFORMATION, "Success", "Project completed!");
+                closeForm();
+            }
+            else{
+                ProjectApplication.showAlert(Alert.AlertType.ERROR, "Error", "Project could not be completed.");
+            }
+        });
+        completeButton.setDisable(!ProjectUtility.areAllMilestonesComplete(proj.getMilestones()));
+        completeButton.setPadding(new Insets(10, 10, 10, 0));
+        if(proj.getStatus().equals("Completed")) {
+            row6.getChildren().addAll(viewHistoryButton);
+        }
+        else
+            row6.getChildren().addAll(viewHistoryButton, management, completeButton);
+
         parentVBox.getChildren().add(row6);
 
         // milestones rows
@@ -340,6 +360,7 @@ public class PMViewProjectController {
 
             newFormStage.initModality(Modality.APPLICATION_MODAL);
             newFormStage.showAndWait();
+            displayProjectDetails();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -371,6 +392,24 @@ public class PMViewProjectController {
         thirdRow.getChildren().addAll(vpButton, genericDateBox("Milestone Started: " + chosen.getStartDate(), "Milestone Deadline: " + (chosen.getEndDate() != null ? chosen.getEndDate() : "N/A")));
         historyVBox.getChildren().add(thirdRow);
 
+        Button completeButton = getButton("Mark As Complete");
+        completeButton.setOnMouseClicked(_ -> {
+            if(Factory.getProjectServices().updateMilestoneStatus(chosen.getMilestoneId(), "Completed")) {
+                chosen.setStatus("Completed");completeButton. setDisable(true);
+                ProjectApplication.showAlert(Alert.AlertType.INFORMATION, "Success", "Milestone has been updated!");
+            }
+            else{
+                ProjectApplication.showAlert(Alert.AlertType.ERROR, "Error", "Milestone could not be completed.");
+            }
+        });
+        completeButton.setDisable(!ProjectUtility.areAllTasksComplete(chosen.getTasks()));
+        completeButton.setPadding(new Insets(10, 10, 10, 0));
+        HBox row6 = new HBox(5);
+        row6.setPadding(new Insets(5, 0, 0, 0));
+        row6.setAlignment(Pos.CENTER);
+        row6.getChildren().add(completeButton);
+        historyVBox.getChildren().add(row6);
+
         ArrayList<Task> tasks = chosen.getTasks();
         Label taskLabel = new Label("Tasks: ");
         taskLabel.setPadding(new Insets(15, 0, 0, 0));
@@ -380,9 +419,22 @@ public class PMViewProjectController {
     }
 
     private void manageScreen(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/manager/createProject.fxml"));
+            Parent newFormRoot = loader.load();
 
+            createProjectController controller = loader.getController();
+            controller.setProject(proj);
+            Stage newFormStage = new Stage();
+            newFormStage.setScene(new Scene(newFormRoot));
+            newFormStage.setTitle("Project SetUp - " + proj.getTitle());
+
+            newFormStage.initModality(Modality.APPLICATION_MODAL);
+            newFormStage.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-    
 
     //done, done
     private void openHistory(){
@@ -447,4 +499,3 @@ public class PMViewProjectController {
 }
 
 //---> iske saath updates wala section rehta tbh idk usme kya karna
-//show the project proposal's submission and acceptance dates

@@ -18,7 +18,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane style="-fx-background-color: #8A927B;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projectHR.EmployeeEditAttendanceController">
+<BorderPane style="-fx-background-color: #8A927B;" xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.employee.AttendanceController">
     <center>
         <AnchorPane prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #99885E;" BorderPane.alignment="CENTER">
             <children>

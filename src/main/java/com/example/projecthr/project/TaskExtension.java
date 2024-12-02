@@ -20,6 +20,14 @@ public class TaskExtension {
         this.status = status;
     }
 
+    public TaskExtension(int taskId, int requestedBy, String reason, Date newDeadline, String status) {
+        this.taskId = taskId;
+        this.requestedBy = requestedBy;
+        this.reason = reason;
+        this.newDeadline = newDeadline;
+        this.status = status != null ? status : "Pending"; // Default to "Pending" if no status is provided
+    }
+
     // Getters and Setters
     public int getExtensionId() {
         return extensionId;

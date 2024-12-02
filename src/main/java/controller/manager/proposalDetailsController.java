@@ -2,20 +2,35 @@ package controller.manager;
 
 import com.example.projecthr.Client;
 import com.example.projecthr.ProjectApplication;
+import com.example.projecthr.ProjectManager;
+import com.example.projecthr.project.Project;
 import com.example.projecthr.project.ProjectProposal;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import utility.Factory;
 import utility.ProjectUtility;
-import java.io.IOException;
+
+import java.sql.Date;
+
 import static com.example.projecthr.ProjectApplication.*;
+import static com.example.projecthr.ProjectApplication.addTimelineToCurrentDate;
 
 public class proposalDetailsController {
+    ProjectManager managerProj;
     ProjectProposal proj;
     Client client;
+
+    @FXML
+    void initialize() {
+        managerProj = (ProjectManager) Factory.getFactory().getMainApp().getUser();
+    }
 
     @FXML private Label projName, descripLabel, budget, duration, attachment, infoBox, statusLab;
     @FXML private Button download, view, accept, reject, sendCommentButton;
@@ -65,23 +80,50 @@ public class proposalDetailsController {
 
         confirmationAlert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                proj.setStatus("Approved");
                 proj.setComment(commentBox.getText());
                 int manager = Factory.getFactory().getMainApp().getUser().getUserId();
                 proj.setManager_id(manager);
-                if(Factory.getProjectServices().updateProposal(proj)){
+
+                Date startDate = new Date(System.currentTimeMillis());
+                Date endDate = addTimelineToCurrentDate(proj.getDuration());
+                Project acceptedProj = new Project(proj.getTitle(), proj.getClient_id(), managerProj.getUserId(), startDate, endDate, "Not Started", proj.getDescription(), proj.getBudget(), proj.getBudget(), proj.getPdfPath());
+
+                if(Factory.getProjectServices().updateProposal(proj) && Factory.getProjectServices().insertProject(proj.getProposal_id(), proj.getClient_id(), managerProj.getUserId(), endDate, "Not Started", -1, null)){
                     showAlert(Alert.AlertType.INFORMATION, "Project Approved!", "The Project Proposal, " + proj.getTitle()  + ", has been accepted. The client has been informed. Click okay to begin project management.");
-                    closeform();
-                    ProjectApplication.switchScene("/manager/createProject.fxml");
+                    proj.setStatus("Approved");
+
+                    acceptedProj.setProjectId((Factory.getProjectServices().getLatestProject()));
+                    manageScreen(acceptedProj);
+                    managerProj.reloadProjects();
+                    closeForm();
                 }
                 else{
                     showAlert(Alert.AlertType.ERROR, "Project Proposal Approval Failed!", "An unexpected error occurred. Please try again later.");
                 }
+
             }
         });
     }
 
-    private void closeform() {
+    private void manageScreen(Project proj) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/manager/createProject.fxml"));
+            Parent newFormRoot = loader.load();
+
+            createProjectController controller = loader.getController();
+            controller.setProject(proj);
+            Stage newFormStage = new Stage();
+            newFormStage.setScene(new Scene(newFormRoot));
+            newFormStage.setTitle("Project SetUp - " + proj.getTitle());
+
+            newFormStage.initModality(Modality.APPLICATION_MODAL);
+            newFormStage.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void closeForm() {
         ((Stage) projName.getScene().getWindow()).close();
     }
 

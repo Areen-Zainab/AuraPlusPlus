@@ -9,12 +9,12 @@ public class HRDashboardController {
 
     @FXML
     protected void onManageEmployeesClick() throws IOException {
-        ProjectApplication.switchScene("adminManageEmployees.fxml");
+        ProjectApplication.switchScene("/hr/adminManageEmployees.fxml");
     }
 
     @FXML
     protected void onProfileClick() throws IOException {
-        ProjectApplication.switchScene("adminProfile.fxml");
+        ProjectApplication.switchScene("/hr/adminProfile.fxml");
     }
 
 }
